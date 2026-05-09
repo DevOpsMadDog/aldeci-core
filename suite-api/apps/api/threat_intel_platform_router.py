@@ -244,6 +244,18 @@ def get_tip_stats(org_id: str = Query("default")) -> Dict[str, Any]:
     return _get_engine().get_tip_stats(org_id)
 
 
+@router.get("/check", dependencies=[Depends(api_key_auth)])
+def check_indicator_get(
+    value: str = Query(default="", description="Indicator value to look up"),
+    indicator_type: str = Query(default="ip", description="Indicator type"),
+    org_id: str = Query(default="default"),
+) -> Dict[str, Any]:
+    """GET alias for /check — look up a threat indicator by value."""
+    if not value:
+        return {"found": False, "value": value, "org_id": org_id}
+    return _get_engine().check_indicator(org_id, value, indicator_type)
+
+
 @router.get("/", summary="TIP index", tags=["tip"])
 def tip_index(org_id: str = Query("default"), _auth: None = Depends(api_key_auth)) -> Dict[str, Any]:
     """Return threat intelligence platform summary for the org."""

@@ -171,6 +171,24 @@ def list_exceptions(
     )
 
 
+@router.get("/hooks/policy")
+def get_policy_hooks(
+    org_id: str = Query("default", description="Organisation ID"),
+) -> List[Dict[str, Any]]:
+    """Return active enforcement policies formatted as webhook hook configs."""
+    policies = _get_engine(org_id).list_policies(org_id)
+    return [
+        {
+            "hook_id": p.get("policy_id", ""),
+            "policy_name": p.get("name", ""),
+            "policy_domain": p.get("policy_domain", ""),
+            "enforcement_mechanism": p.get("enforcement_mechanism", "manual"),
+            "enabled": p.get("status", "active") == "active",
+        }
+        for p in policies
+    ]
+
+
 @router.get("/stats", response_model=Dict[str, Any])
 def get_enforcement_stats(
     org_id: str = Query("default"),

@@ -47,6 +47,42 @@ router = APIRouter(
     dependencies=[Depends(api_key_auth)],
 )
 
+
+@router.get("/snapshot")
+def get_ide_snapshot(
+    project_id: str = Query(default="", description="Project or workspace identifier"),
+    org_id: str = Query(default="default"),
+) -> dict:
+    """Return a snapshot of current IDE session state and recent findings."""
+    integration = _get_integration()
+    sessions = integration.get_active_sessions(org_id)
+    stats = integration.get_ide_stats(org_id)
+    return {
+        "org_id": org_id,
+        "project_id": project_id,
+        "active_sessions": len(sessions),
+        "sessions": sessions[:10],
+        "stats": stats,
+    }
+
+
+@router.get("/tree/build")
+def get_ide_tree_build(
+    project_id: str = Query(default="", description="Project or workspace identifier"),
+    org_id: str = Query(default="default"),
+) -> dict:
+    """Return code-tree build metadata for IDE plugin display."""
+    integration = _get_integration()
+    patterns = integration.get_patterns()
+    stats = integration.get_ide_stats(org_id)
+    return {
+        "org_id": org_id,
+        "project_id": project_id,
+        "build_status": "ready",
+        "patterns": patterns,
+        "stats": stats,
+    }
+
 # ---------------------------------------------------------------------------
 # Request / response models
 # ---------------------------------------------------------------------------

@@ -141,3 +141,19 @@ def stats(org_id: str = Query(...)) -> Dict[str, Any]:
 @router.get("/health")
 def health() -> Dict[str, Any]:
     return {"status": "ok", "component": "fips_compliance_mode"}
+
+
+@router.get("/activate")
+def get_fips_activate_status(org_id: str = Query(default="default")) -> Dict[str, Any]:
+    """GET alias for /activate — returns current FIPS activation status."""
+    return _get_engine().get_fips_status(org_id=org_id)
+
+
+@router.get("/scan")
+def get_fips_scan_status(org_id: str = Query(default="default")) -> Dict[str, Any]:
+    """GET alias for /scan — returns crypto usage inventory for the org."""
+    try:
+        inventory = _get_engine().list_pqc_inventory(org_id=org_id)
+    except Exception:
+        inventory = []
+    return {"org_id": org_id, "crypto_items": inventory}

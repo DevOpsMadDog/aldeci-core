@@ -131,6 +131,18 @@ def get_stats(
     return _get_engine().stats(org_id)
 
 
+@router.get("/rules", summary="List DSL rules (alias for UI path /rules/dsl/rules)")
+def list_rules_alias(
+    org_id: str = Query("default", description="Organisation ID"),
+    status: Optional[str] = Query(None, description="draft|published|retired"),
+) -> List[Dict[str, Any]]:
+    """Static alias — declared before /{key} so it is not swallowed as a key lookup."""
+    try:
+        return _get_engine().list_rules(org_id, status=status)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
 @router.get("/{key}", summary="Get DSL rule by key (latest version)")
 def get_rule(
     key: str,

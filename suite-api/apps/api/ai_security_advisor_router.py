@@ -219,3 +219,17 @@ def update_recommendation_status(
 def get_stats(org_id: str = Query(default="default")):
     """Return aggregated AI advisor statistics for the org."""
     return _get_engine().get_stats(org_id)
+
+
+@router.get("/ask", dependencies=[Depends(api_key_auth)])
+def ask_advisor_get(
+    question: str = Query(default="", description="Free-form security question"),
+    org_id: str = Query(default="default"),
+):
+    """GET alias for /ask — returns recent advisor sessions as a summary."""
+    try:
+        sessions = _get_engine().list_sessions(org_id)
+        return {"sessions": sessions, "question": question, "org_id": org_id}
+    except Exception as exc:
+        _logger.exception("Error in GET /ask")
+        raise HTTPException(status_code=500, detail=str(exc)) from exc

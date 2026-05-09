@@ -84,6 +84,7 @@ class WorkloadUpdate(BaseModel):
 # Endpoints
 # ---------------------------------------------------------------------------
 
+@router.get("", dependencies=[Depends(api_key_auth)])
 @router.get("/", dependencies=[Depends(api_key_auth)])
 def list_soc_metrics(org_id: str = Query("default")) -> Dict[str, Any]:
     """Get SOC metrics summary for the org."""
@@ -184,3 +185,35 @@ def get_analyst_performance(
 ) -> List[Dict[str, Any]]:
     """Get analyst performance records, optionally filtered by date."""
     return _get_engine().get_analyst_performance(org_id=org_id, date_str=date)
+
+
+@router.get("/analysts", dependencies=[Depends(api_key_auth)])
+def list_analysts(org_id: str = Query(default="default")) -> List[Dict[str, Any]]:
+    """Return analyst performance and workload records for the org."""
+    return _get_engine().get_analyst_performance(org_id=org_id)
+
+
+@router.get("/queue", dependencies=[Depends(api_key_auth)])
+def get_alert_queue(
+    org_id: str = Query(default="default"),
+    status: Optional[str] = Query(default="open"),
+) -> Dict[str, Any]:
+    """Return current alert queue summary (open/acknowledged alerts)."""
+    summary = _get_engine().get_soc_summary(org_id=org_id)
+    by_status = summary.get("by_status", {})
+    return {
+        "org_id": org_id,
+        "queue_depth": by_status.get("open", 0) + by_status.get("acknowledged", 0),
+        "open": by_status.get("open", 0),
+        "acknowledged": by_status.get("acknowledged", 0),
+        "by_severity": summary.get("by_severity", {}),
+    }
+
+
+@router.get("/snapshots", dependencies=[Depends(api_key_auth)])
+def list_snapshots(
+    org_id: str = Query(default="default"),
+    days: int = Query(default=30, ge=1, le=365),
+) -> List[Dict[str, Any]]:
+    """Return daily SOC metric snapshots for the org."""
+    return _get_engine().get_mttd_trend(org_id=org_id, days=days)

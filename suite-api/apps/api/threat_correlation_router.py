@@ -29,10 +29,20 @@ _engine = None
 def _get_engine():
     global _engine
     if _engine is None:
+        import os
         from pathlib import Path
 
         from core.threat_correlation_engine import ThreatCorrelationEngine
-        db_path = str(Path(__file__).resolve().parents[4] / ".fixops_data" / "threat_correlation_default.db")
+        # Prefer .aldeci/ (exists on all deployments); fall back to .fixops_data/
+        repo_root = Path(__file__).resolve().parents[4]
+        aldeci_dir = repo_root / ".aldeci"
+        fixops_dir = repo_root / ".fixops_data"
+        if aldeci_dir.is_dir():
+            data_dir = aldeci_dir
+        else:
+            data_dir = fixops_dir
+            data_dir.mkdir(parents=True, exist_ok=True)
+        db_path = str(data_dir / "threat_correlation_default.db")
         _engine = ThreatCorrelationEngine(db_path)
     return _engine
 

@@ -318,6 +318,25 @@ class ProwlerScanQueueResponse(BaseModel):
 
 
 @router.get(
+    "/scan",
+    summary="GET alias for Prowler scan — returns scan history and status",
+)
+def get_scan_summary(
+    org_id: str = Query(default="default"),
+) -> Dict[str, Any]:
+    """Returns recent Prowler scan history and overall summary (GET alias for UI)."""
+    try:
+        summary = _get_engine().get_summary()
+    except Exception:
+        summary = {}
+    try:
+        scans = _get_engine().list_scans()
+    except Exception:
+        scans = []
+    return {"org_id": org_id, "summary": summary, "recent_scans": scans[:20]}
+
+
+@router.get(
     "/",
     response_model=ProwlerCapabilitySummary,
     summary="Prowler CSPM capability summary",

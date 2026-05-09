@@ -239,3 +239,31 @@ def update_remediation_status(
 def get_stats(org_id: str = Query(default="default")):
     """Return aggregated chaos engineering statistics."""
     return _get_engine().get_chaos_stats(org_id)
+
+
+@router.get("/observations", dependencies=[Depends(api_key_auth)])
+def list_all_observations(
+    org_id: str = Query(default="default"),
+    observation_type: Optional[str] = Query(None),
+    limit: int = Query(default=50, ge=1, le=500),
+):
+    """Return observations across all experiments for an org (top-level alias)."""
+    try:
+        experiments = _get_engine().list_experiments(org_id)
+    except Exception:
+        experiments = []
+    observations = []
+    for exp in experiments:
+        exp_id = exp.get("experiment_id") or exp.get("id", "")
+        if not exp_id:
+            continue
+        try:
+            obs = _get_engine().list_observations(org_id, exp_id)
+            if observation_type:
+                obs = [o for o in obs if o.get("observation_type") == observation_type]
+            observations.extend(obs)
+        except Exception:
+            continue
+        if len(observations) >= limit:
+            break
+    return observations[:limit]

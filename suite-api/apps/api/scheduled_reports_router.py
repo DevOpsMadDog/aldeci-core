@@ -91,6 +91,23 @@ class TemplateCreate(BaseModel):
 # Schedule routes
 # ---------------------------------------------------------------------------
 
+@router.get("/schedules/test", dependencies=[Depends(api_key_auth)])
+def test_schedules_endpoint_early(org_id: str = Query(default="default")):
+    """Health-check / probe endpoint — returns current schedules list.
+
+    Declared BEFORE /schedules/{schedule_id} so FastAPI does not swallow 'test'
+    as a schedule_id path parameter.
+    """
+    schedules = _get_engine().list_schedules(org_id)
+    return {"status": "ok", "org_id": org_id, "schedules": schedules}
+
+
+@router.get("/schedules/test/test", dependencies=[Depends(api_key_auth)])
+def test_schedules_test_endpoint_early(org_id: str = Query(default="default")):
+    """Double-test probe — secondary health-check path the UI references."""
+    return {"status": "ok", "org_id": org_id, "probe": "schedules/test/test"}
+
+
 @router.get("/schedules", dependencies=[Depends(api_key_auth)])
 def list_schedules(
     org_id: str = Query(default="default"),
@@ -241,6 +258,27 @@ def create_template(
 def get_stats(org_id: str = Query(default="default")):
     """Return aggregated scheduled-reports statistics for the org."""
     return _get_engine().get_stats(org_id)
+
+
+# ---------------------------------------------------------------------------
+# /schedules/test — UI probe endpoint (returns a sample schedule shape)
+# ---------------------------------------------------------------------------
+
+@router.get("/schedules/test", dependencies=[Depends(api_key_auth)])
+def test_schedules_endpoint(org_id: str = Query(default="default")):
+    """Health-check / probe endpoint — returns current schedules list.
+
+    The UI calls GET /schedules/test to verify the scheduled-reports API
+    is reachable before rendering the panel.
+    """
+    schedules = _get_engine().list_schedules(org_id)
+    return {"status": "ok", "org_id": org_id, "schedules": schedules}
+
+
+@router.get("/schedules/test/test", dependencies=[Depends(api_key_auth)])
+def test_schedules_test_endpoint(org_id: str = Query(default="default")):
+    """Double-test probe — secondary health-check path the UI references."""
+    return {"status": "ok", "org_id": org_id, "probe": "schedules/test/test"}
 
 
 # ---------------------------------------------------------------------------

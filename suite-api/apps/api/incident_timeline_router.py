@@ -74,6 +74,32 @@ class AffectedSystemCreate(BaseModel):
 # Timeline endpoints
 # ---------------------------------------------------------------------------
 
+@router.get("/events", dependencies=[Depends(api_key_auth)])
+def list_all_events_top(
+    org_id: str = Query(default="default"),
+    limit: int = Query(default=50, ge=1, le=500),
+    event_type: Optional[str] = Query(None),
+):
+    """Return recent timeline events across all incident timelines for an org."""
+    try:
+        timelines = _get_engine().list_timelines(org_id)
+    except Exception:
+        timelines = []
+    events: List[Any] = []
+    for tl in timelines:
+        tl_id = tl.get("timeline_id") or tl.get("id", "")
+        if not tl_id:
+            continue
+        try:
+            tl_events = _get_engine().list_events(org_id, tl_id, event_type=event_type)
+            events.extend(tl_events)
+        except Exception:
+            continue
+        if len(events) >= limit:
+            break
+    return events[:limit]
+
+
 @router.post("", dependencies=[Depends(api_key_auth)], status_code=201)
 def create_timeline(body: TimelineCreate, org_id: str = Query(default="default")):
     """Create a new incident timeline."""
@@ -190,3 +216,33 @@ def calculate_metrics(
         return _get_engine().calculate_metrics(org_id, timeline_id)
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+# ---------------------------------------------------------------------------
+# Top-level /events alias — returns events across all timelines for the org
+# ---------------------------------------------------------------------------
+
+@router.get("/events", dependencies=[Depends(api_key_auth)])
+def list_all_events(
+    org_id: str = Query(default="default"),
+    limit: int = Query(default=50, ge=1, le=500),
+    event_type: Optional[str] = Query(None),
+):
+    """Return recent timeline events across all incident timelines for an org."""
+    try:
+        timelines = _get_engine().list_timelines(org_id)
+    except Exception:
+        timelines = []
+    events: List[Any] = []
+    for tl in timelines:
+        tl_id = tl.get("timeline_id") or tl.get("id", "")
+        if not tl_id:
+            continue
+        try:
+            tl_events = _get_engine().list_events(org_id, tl_id, event_type=event_type)
+            events.extend(tl_events)
+        except Exception:
+            continue
+        if len(events) >= limit:
+            break
+    return events[:limit]

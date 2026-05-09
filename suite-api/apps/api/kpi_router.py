@@ -193,3 +193,62 @@ async def list_kpi_definitions() -> List[Dict[str, Any]]:
     Use this to discover available KPI names before recording data.
     """
     return _get_engine().list_kpi_definitions()
+
+
+# ---------------------------------------------------------------------------
+# UI aliases — /categories /scorecard /strengths /trends /weaknesses
+# ---------------------------------------------------------------------------
+
+@router.get("/categories")
+async def get_kpi_categories(org_id: str = Query("default")) -> List[Dict[str, Any]]:
+    """Return KPI definitions grouped by category."""
+    defs = _get_engine().list_kpi_definitions()
+    cats: Dict[str, List[Dict[str, Any]]] = {}
+    for d in defs:
+        cat = d.get("category", "other")
+        cats.setdefault(cat, []).append(d)
+    return [{"category": k, "kpis": v} for k, v in cats.items()]
+
+
+@router.get("/scorecard")
+async def get_kpi_scorecard(org_id: str = Query("default")) -> Dict[str, Any]:
+    """Return executive KPI scorecard."""
+    try:
+        summary = _get_engine().get_executive_kpis(org_id=org_id)
+        return summary.model_dump() if hasattr(summary, "model_dump") else dict(summary)
+    except Exception:
+        return {"org_id": org_id, "kpis": [], "overall_health": "unknown"}
+
+
+@router.get("/strengths")
+async def get_kpi_strengths(org_id: str = Query("default")) -> List[Dict[str, Any]]:
+    """Return KPIs in green (above target) — org strengths."""
+    health = _get_engine().get_kpi_health(org_id=org_id)
+    return [h.model_dump() if hasattr(h, "model_dump") else dict(h)
+            for h in health if getattr(h, "status", None) == "green"]
+
+
+@router.get("/weaknesses")
+async def get_kpi_weaknesses(org_id: str = Query("default")) -> List[Dict[str, Any]]:
+    """Return KPIs in red or yellow — org weaknesses."""
+    health = _get_engine().get_kpi_health(org_id=org_id)
+    return [h.model_dump() if hasattr(h, "model_dump") else dict(h)
+            for h in health if getattr(h, "status", None) in ("red", "yellow")]
+
+
+@router.get("/trends")
+async def get_kpi_trends(
+    org_id: str = Query("default"),
+    days: int = Query(30, ge=1, le=365),
+) -> List[Dict[str, Any]]:
+    """Return trend data for all current KPIs."""
+    current = _get_engine().get_current_kpis(org_id=org_id)
+    result = []
+    for kpi in current:
+        name = kpi.name if hasattr(kpi, "name") else kpi.get("name", "")
+        try:
+            trend = _get_engine().get_kpi_trend(name=name, org_id=org_id, days=days)
+        except Exception:
+            trend = []
+        result.append({"name": name, "trend": trend})
+    return result

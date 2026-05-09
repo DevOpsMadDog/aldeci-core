@@ -142,6 +142,24 @@ def expire_stale_iocs(req: ExpireRequest) -> Dict[str, Any]:
         raise HTTPException(status_code=500, detail=str(exc))
 
 
+@router.get("/iocs", summary="List IOCs with confidence scores")
+def list_iocs(
+    org_id: str = Query(default="default"),
+    min_confidence: float = Query(default=0.0, ge=0.0, le=1.0),
+    ioc_type: Optional[str] = Query(default=None),
+) -> Dict[str, Any]:
+    """Return all IOCs with their confidence scores for the org."""
+    try:
+        high = _get_engine().get_high_confidence_iocs(org_id=org_id, min_confidence=min_confidence)
+        if ioc_type:
+            high = [i for i in high if i.get("ioc_type") == ioc_type]
+        summary = _get_engine().get_ioc_summary(org_id=org_id)
+        return {"iocs": high, "summary": summary}
+    except Exception as exc:
+        _logger.exception("list_iocs failed")
+        raise HTTPException(status_code=500, detail=str(exc))
+
+
 @router.get("/summary", summary="IOC summary stats")
 def get_ioc_summary(org_id: str = Query(default="default")) -> Dict[str, Any]:
     try:
