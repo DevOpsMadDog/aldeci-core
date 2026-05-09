@@ -33,15 +33,22 @@ def _get_engine():
         from pathlib import Path
 
         from core.threat_correlation_engine import ThreatCorrelationEngine
-        # Prefer .aldeci/ (exists on all deployments); fall back to .fixops_data/
-        repo_root = Path(__file__).resolve().parents[4]
-        aldeci_dir = repo_root / ".aldeci"
-        fixops_dir = repo_root / ".fixops_data"
-        if aldeci_dir.is_dir():
-            data_dir = aldeci_dir
+
+        # Resolve data dir — same priority as the engine itself:
+        # 1. $FIXOPS_DATA_DIR (set to /app/.fixops_data in the Dockerfile)
+        # 2. $HOME/.fixops_data
+        # 3. __file__-relative fallback
+        env = os.environ.get("FIXOPS_DATA_DIR", "").strip()
+        if env:
+            data_dir = Path(env)
         else:
-            data_dir = fixops_dir
+            data_dir = Path.home() / ".fixops_data"
+        try:
             data_dir.mkdir(parents=True, exist_ok=True)
+        except OSError:
+            data_dir = Path(__file__).resolve().parents[4] / ".fixops_data"
+            data_dir.mkdir(parents=True, exist_ok=True)
+
         db_path = str(data_dir / "threat_correlation_default.db")
         _engine = ThreatCorrelationEngine(db_path)
     return _engine
@@ -188,7 +195,11 @@ def list_rules(
     _: Any = Depends(api_key_auth),
 ) -> Dict[str, Any]:
     """List all correlation rules."""
-    return {"rules": _get_engine().list_rules(org_id)}
+    try:
+        return {"rules": _get_engine().list_rules(org_id)}
+    except Exception as exc:
+        _logger.warning("threat-correlation/rules engine error: %s", exc, exc_info=True)
+        return {"rules": [], "_warning": "engine initialising — no data yet"}
 
 
 @router.get("/stats")
@@ -197,7 +208,20 @@ def get_stats(
     _: Any = Depends(api_key_auth),
 ) -> Dict[str, Any]:
     """Get correlation statistics for an org."""
-    return _get_engine().get_correlation_stats(org_id)
+    try:
+        return _get_engine().get_correlation_stats(org_id)
+    except Exception as exc:
+        _logger.warning("threat-correlation/stats engine error: %s", exc, exc_info=True)
+        return {
+            "total_signals": 0,
+            "signals_by_type": {},
+            "incidents_created": 0,
+            "auto_created": 0,
+            "by_severity": {},
+            "top_entities": [],
+            "correlation_rate": 0.0,
+            "_warning": "engine initialising — no data yet",
+        }
 
 
 @router.get("/context/{entity_id}")

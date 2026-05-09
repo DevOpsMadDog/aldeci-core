@@ -31,7 +31,36 @@ except ImportError:
 
 _logger = logging.getLogger(__name__)
 
-_DATA_DIR = Path(__file__).resolve().parents[2] / ".fixops_data"
+def _resolve_data_dir() -> Path:
+    """Return a writable data directory.
+
+    Priority:
+    1. $FIXOPS_DATA_DIR env var  (set to /app/.fixops_data in the Dockerfile)
+    2. $HOME/.fixops_data        (local dev fallback)
+    3. __file__-relative path    (last resort)
+    """
+    import os
+
+    env = os.environ.get("FIXOPS_DATA_DIR", "").strip()
+    if env:
+        p = Path(env)
+        try:
+            p.mkdir(parents=True, exist_ok=True)
+            return p
+        except OSError:
+            pass
+
+    home_fallback = Path.home() / ".fixops_data"
+    try:
+        home_fallback.mkdir(parents=True, exist_ok=True)
+        return home_fallback
+    except OSError:
+        pass
+
+    return Path(__file__).resolve().parents[2] / ".fixops_data"
+
+
+_DATA_DIR = _resolve_data_dir()
 
 _VALID_SIGNAL_TYPES = {"alert", "ioc", "anomaly", "vulnerability", "log_event"}
 _VALID_SOURCE_ENGINES = {"edr", "ndr", "xdr", "siem", "threat_feed", "dlp"}
