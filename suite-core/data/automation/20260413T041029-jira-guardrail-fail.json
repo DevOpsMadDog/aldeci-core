@@ -1,0 +1,40 @@
+{
+  "id": "jira-guardrail-fail",
+  "type": "jira_issue",
+  "target": "SEC",
+  "payload": {
+    "type": "jira_issue",
+    "description": "FixOps detected a guardrail failure and created this ticket automatically.",
+    "summary": "Guardrail failure detected",
+    "id": "jira-guardrail-fail",
+    "priority": "High",
+    "context": {
+      "highest": "high",
+      "counts": {
+        "high": 1
+      },
+      "sources": {
+        "sarif": {
+          "high": 1
+        },
+        "cve": {}
+      },
+      "trigger": {
+        "source": "sarif",
+        "rule_id": "SNYK-JAVA-LOG4J-2314726",
+        "level": "error",
+        "file": "pom.xml"
+      },
+      "metadata": {
+        "file": "pom.xml",
+        "location": "pom.xml:42",
+        "rule_id": "SNYK-JAVA-LOG4J-2314726",
+        "message": "CVE-2021-44228 in log4j-core 2.14.1",
+        "type": "sast"
+      }
+    },
+    "project_key": "SEC",
+    "issue_type": "Task"
+  },
+  "dispatched_at": "2026-04-13T04:10:29.458006Z"
+}

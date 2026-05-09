@@ -1,0 +1,31 @@
+{
+  "run_id": "09712854448346e5a74236849acd3892",
+  "mode": "enterprise",
+  "bundle": "/Users/devops.ai/fixops/Fixops/data/evidence/enterprise/09712854448346e5a74236849acd3892/fixops-enterprise-run-bundle.json",
+  "sections": [
+    "producer",
+    "design_summary",
+    "sbom_summary",
+    "sarif_summary",
+    "cve_summary",
+    "severity_overview",
+    "context_summary",
+    "guardrail_evaluation",
+    "compliance_status",
+    "policy_automation",
+    "analytics",
+    "tenant_lifecycle",
+    "performance_profile",
+    "ai_agent_analysis",
+    "probabilistic_forecast",
+    "exploitability_insights",
+    "severity_promotions",
+    "ssdlc_assessment",
+    "iac_posture",
+    "module_execution"
+  ],
+  "compressed": false,
+  "encrypted": false,
+  "sha256": "712326c479d32e48a25d09544b68b567e0b6398d2664bfa931cf4300e4856a6b",
+  "retention_days": 2555
+}

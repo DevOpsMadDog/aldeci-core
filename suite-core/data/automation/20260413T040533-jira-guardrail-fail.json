@@ -1,0 +1,49 @@
+{
+  "id": "jira-guardrail-fail",
+  "type": "jira_issue",
+  "target": "SEC",
+  "payload": {
+    "type": "jira_issue",
+    "summary": "Guardrail failure detected",
+    "description": "FixOps detected a guardrail failure and created this ticket automatically.",
+    "priority": "High",
+    "id": "jira-guardrail-fail",
+    "context": {
+      "highest": "critical",
+      "counts": {
+        "high": 13,
+        "low": 19,
+        "medium": 14,
+        "critical": 3
+      },
+      "sources": {
+        "sarif": {
+          "high": 12,
+          "low": 19,
+          "medium": 13
+        },
+        "cve": {
+          "high": 1,
+          "critical": 3,
+          "medium": 1
+        }
+      },
+      "trigger": {
+        "source": "cve",
+        "cve_id": "CVE-2024-67235",
+        "severity": "CRITICAL",
+        "exploited": false
+      },
+      "metadata": {
+        "file": "src/module0.py",
+        "location": "src/module0.py:326",
+        "rule_id": "RULE-7484",
+        "message": "Security issue 0 in StreamHub Video Platform",
+        "type": "sast"
+      }
+    },
+    "project_key": "SEC",
+    "issue_type": "Task"
+  },
+  "dispatched_at": "2026-04-13T04:05:33.356609Z"
+}

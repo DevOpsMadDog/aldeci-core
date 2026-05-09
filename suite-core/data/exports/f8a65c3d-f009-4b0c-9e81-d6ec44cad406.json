@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "64906898-9912-485f-9394-cd24e7fcbb4e",
+      "org_id": "org-test-001",
+      "title": "SQL Injection",
+      "severity": "high",
+      "source": "zap",
+      "description": "SQL injection in login",
+      "rule_id": "RULE-001",
+      "cve_id": "CVE-2023-1234",
+      "cvss_score": 8.5,
+      "epss_score": 0.45,
+      "exploitable": 1,
+      "application_id": null,
+      "service_id": null,
+      "status": "open",
+      "metadata": "{}",
+      "import_id": "cd5f560a-510a-4a74-aadc-7d977a670232",
+      "created_at": "2026-04-13T04:13:19.017718+00:00"
+    }
+  ],
+  "total": 1
+}

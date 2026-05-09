@@ -1,0 +1,46 @@
+{
+  "id": "jira-guardrail-fail",
+  "type": "jira_issue",
+  "target": "SEC",
+  "payload": {
+    "type": "jira_issue",
+    "description": "FixOps detected a guardrail failure and created this ticket automatically.",
+    "priority": "High",
+    "summary": "Guardrail failure detected",
+    "id": "jira-guardrail-fail",
+    "context": {
+      "highest": "critical",
+      "counts": {
+        "high": 9,
+        "medium": 1,
+        "critical": 10
+      },
+      "sources": {
+        "sarif": {
+          "high": 9,
+          "medium": 1
+        },
+        "cve": {
+          "critical": 10,
+          "high": 0
+        }
+      },
+      "trigger": {
+        "source": "cve",
+        "cve_id": "CVE-2021-44228",
+        "severity": "critical",
+        "exploited": true
+      },
+      "metadata": {
+        "file": "pom.xml",
+        "location": "pom.xml:45",
+        "rule_id": "CVE-2021-44228",
+        "message": "Vulnerable Log4j 2.14.1 detected. This version is affected by Log4Shell (CVE-2021-44228), a critical RCE vulnerability with CVSS 10.0. Actively exploited in the wild. Upgrade to 2.17.0+.",
+        "type": "sast"
+      }
+    },
+    "project_key": "SEC",
+    "issue_type": "Task"
+  },
+  "dispatched_at": "2026-04-13T04:08:18.766583Z"
+}

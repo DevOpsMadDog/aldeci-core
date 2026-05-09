@@ -1,0 +1,2 @@
+component,owner,criticality,notes
+payment-api,backend-team,high,Handles payment processing

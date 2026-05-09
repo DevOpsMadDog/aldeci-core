@@ -1,0 +1,8 @@
+{
+  "id": "660eb60681af445a9fb6c572580cf900",
+  "stage": "sbom",
+  "stored_at": "2026-04-13T03:55:30.641851Z",
+  "original_filename": "large_sbom.json",
+  "raw_path": "/Users/devops.ai/fixops/Fixops/data/archive/sbom/2026-04-13T035530.641851Z-660eb60681af445a9fb6c572580cf900.raw",
+  "normalized_path": "/Users/devops.ai/fixops/Fixops/data/archive/sbom/2026-04-13T035530.641851Z-660eb60681af445a9fb6c572580cf900.json"
+}

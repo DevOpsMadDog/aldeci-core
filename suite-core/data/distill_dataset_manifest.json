@@ -1,0 +1,35 @@
+{
+  "generated_at": "2026-04-28T01:56:18.213387+00:00",
+  "signals_db": "/Users/devops.ai/fixops/Fixops/data/learning_signals.db",
+  "stats": {
+    "verdicts_total": 5196,
+    "verdicts_opus_escalated": 5196,
+    "pairs_total": 5196,
+    "pairs_kept": 5196,
+    "pairs_dropped_source": 0,
+    "pairs_dropped_confidence": 0,
+    "pairs_dropped_agreement": 0,
+    "pairs_dropped_dedupe": 0,
+    "pairs_dropped_missing_verdict": 0,
+    "pairs_dropped_malformed": 0,
+    "distinct_findings": 5196
+  },
+  "filters": {
+    "accepted_sources": [
+      "analyst_override",
+      "llm_learning_loop_low_confidence",
+      "council_member_disagreement",
+      "remediation_outcome_failed",
+      "smoke_test_simulated_override"
+    ],
+    "min_confidence": 0.4,
+    "min_agreement": 0,
+    "only_opus": false
+  },
+  "outputs": {
+    "dpo_jsonl": "/Users/devops.ai/fixops/Fixops/data/distill_train.jsonl",
+    "sft_jsonl": "/Users/devops.ai/fixops/Fixops/data/distill_sft.jsonl",
+    "dpo_records": 5196,
+    "sft_records": 5196
+  }
+}

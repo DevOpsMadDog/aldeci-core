@@ -1,0 +1,23 @@
+[
+  {
+    "pattern_id": "pattern::review::cwe=UNK&severity=high&kev=False&reachable=False&exploit_available=False",
+    "predicate": {
+      "cwe": "UNK",
+      "severity": "high",
+      "kev": false,
+      "reachable": false,
+      "exploit_available": false
+    },
+    "verdict_action": "review",
+    "support": 5000,
+    "correctness": 0.0,
+    "confidence": 0.0,
+    "sample_trajectory_ids": [
+      "traj_SAST-cbe13dd102b3_review",
+      "traj_SAST-253babb0947f_review",
+      "traj_SAST-c012abb40001_review",
+      "traj_SAST-3d92822ae10d_review",
+      "traj_SAST-19492addbd05_review"
+    ]
+  }
+]

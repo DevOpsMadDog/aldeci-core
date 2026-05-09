@@ -1,0 +1,165 @@
+OK 2026-04-27T23:41:54 — pairs_before=703 pairs_after=5195 delta=+4492
+[2026-04-27T23:27:17] === nightly_fleet_scan_cron START ===
+[2026-04-27T23:27:17] REPO_ROOT : /Users/devops.ai/fixops/Fixops
+[2026-04-27T23:27:17] PYTHON    : /Users/devops.ai/fixops/Fixops/.venv/bin/python3
+[2026-04-27T23:27:17] FLEET_DIR : /tmp/fixops-fleet
+[2026-04-27T23:27:17] Tenants found: 15
+[2026-04-27T23:27:17] DPO pairs before scan: 703
+[2026-04-27T23:27:17] --- Step 1: aspm_real_scan.py ---
+Scanning juice-shop (80 files, lang=javascript)…
+  → juice-shop: 12 findings persisted
+Scanning NodeGoat (50 files, lang=javascript)…
+  → NodeGoat: 44 findings persisted
+Scanning dvna (14 files, lang=javascript)…
+  → dvna: 16 findings persisted
+Scanning vulnado (80 files, lang=java)…
+  → vulnado: 200 findings persisted
+Scanning WebGoat (80 files, lang=java)…
+  → WebGoat: 200 findings persisted
+Scanning django (80 files, lang=python)…
+  → django: 95 findings persisted
+Scanning flask (80 files, lang=python)…
+  → flask: 155 findings persisted
+Scanning express (80 files, lang=javascript)…
+  → express: 99 findings persisted
+ASPM stats for org=default: {'app_count': 11, 'avg_security_score': 0.0, 'open_sast_by_severity': {'critical': 68, 'high': 70, 'low': 455, 'medium': 229}, 'open_dast_by_severity': {}, 'scans_this_week': 8, 'top_vulnerable_apps': [{'id': '8834ca58-529a-4b27-a188-aa48b1a7bb7c', 'name': 'flask', 'criticality': 'high', 'open_critical_high': 40}, {'id': '124652ca-3c1f-4fb4-9682-f1f1797fd94d', 'name': 'NodeGoat', 'criticality': 'high', 'open_critical_high': 29}, {'id': '63856468-c566-4346-8a8d-02a75651920d', 'name': 'express', 'criticality': 'high', 'open_critical_high': 24}, {'id': 'edac7cec-59fc-4aee-8cfd-643c31a90c1f', 'name': 'django', 'criticality': 'high', 'open_critical_high': 16}, {'id': 'b6779613-3054-453a-b6e8-0a4089ea0fe5', 'name': 'juice-shop', 'criticality': 'high', 'open_critical_high': 10}]}
+{
+  "org_id": "default",
+  "apps": [
+    {
+      "name": "juice-shop",
+      "id": "b6779613-3054-453a-b6e8-0a4089ea0fe5",
+      "files": 80,
+      "findings": 12
+    },
+    {
+      "name": "NodeGoat",
+      "id": "124652ca-3c1f-4fb4-9682-f1f1797fd94d",
+      "files": 50,
+      "findings": 44
+    },
+    {
+      "name": "dvna",
+      "id": "e2dd7870-a004-47ac-8c48-8684bef1d819",
+      "files": 14,
+      "findings": 16
+    },
+    {
+      "name": "vulnado",
+      "id": "bf319797-3f72-4c1d-84d9-c6836bcd8ae1",
+      "files": 80,
+      "findings": 200
+    },
+    {
+      "name": "WebGoat",
+      "id": "7fe3ad24-f357-4acd-8610-23026160f51a",
+      "files": 80,
+      "findings": 200
+    },
+    {
+      "name": "django",
+      "id": "edac7cec-59fc-4aee-8cfd-643c31a90c1f",
+      "files": 80,
+      "findings": 95
+    },
+    {
+      "name": "flask",
+      "id": "8834ca58-529a-4b27-a188-aa48b1a7bb7c",
+      "files": 80,
+      "findings": 155
+    },
+    {
+      "name": "express",
+      "id": "63856468-c566-4346-8a8d-02a75651920d",
+      "files": 80,
+      "findings": 99
+    }
+  ],
+  "stats": {
+    "app_count": 11,
+    "avg_security_score": 0.0,
+    "open_sast_by_severity": {
+      "critical": 68,
+      "high": 70,
+      "low": 455,
+      "medium": 229
+    },
+    "open_dast_by_severity": {},
+    "scans_this_week": 8,
+    "top_vulnerable_apps": [
+      {
+        "id": "8834ca58-529a-4b27-a188-aa48b1a7bb7c",
+        "name": "flask",
+        "criticality": "high",
+        "open_critical_high": 40
+      },
+      {
+        "id": "124652ca-3c1f-4fb4-9682-f1f1797fd94d",
+        "name": "NodeGoat",
+        "criticality": "high",
+        "open_critical_high": 29
+      },
+      {
+        "id": "63856468-c566-4346-8a8d-02a75651920d",
+        "name": "express",
+        "criticality": "high",
+        "open_critical_high": 24
+      },
+      {
+        "id": "edac7cec-59fc-4aee-8cfd-643c31a90c1f",
+        "name": "django",
+        "criticality": "high",
+        "open_critical_high": 16
+      },
+      {
+        "id": "b6779613-3054-453a-b6e8-0a4089ea0fe5",
+        "name": "juice-shop",
+        "criticality": "high",
+        "open_critical_high": 10
+      }
+    ]
+  }
+}
+[2026-04-27T23:27:32] Step 1 complete
+[2026-04-27T23:27:32] --- Step 2: seed_real_sboms.py ---
+[2026-04-27T23:41:54] WARN: seed_real_sboms.py failed — continuing (non-fatal)
+[2026-04-27T23:41:54] Step 2 complete
+[2026-04-27T23:41:54] --- Step 3: cspm_localstack_seed.py (conditional) ---
+CSPM LocalStack seeder → endpoint=http://localhost:4566
+Seeding S3 (2 pairs)…
+Traceback (most recent call last):
+  File "/Users/devops.ai/fixops/Fixops/scripts/cspm_localstack_seed.py", line 178, in <module>
+    sys.exit(main())
+  File "/Users/devops.ai/fixops/Fixops/scripts/cspm_localstack_seed.py", line 163, in main
+    summary["s3"] = seed_s3(args.endpoint, args.buckets)
+  File "/Users/devops.ai/fixops/Fixops/scripts/cspm_localstack_seed.py", line 49, in seed_s3
+    s3 = _client("s3", endpoint)
+  File "/Users/devops.ai/fixops/Fixops/scripts/cspm_localstack_seed.py", line 38, in _client
+    import boto3
+ModuleNotFoundError: No module named 'boto3'
+[2026-04-27T23:41:54] WARN: cspm_localstack_seed.py failed — continuing (non-fatal)
+[2026-04-27T23:41:54] Step 3 complete (LocalStack was up)
+[2026-04-27T23:41:54] --- Step 4: llm_distill_dataset_curator.py ---
+23:41:54 INFO [distill-curator] Reading signals from /Users/devops.ai/fixops/Fixops/data/learning_signals.db
+23:41:54 INFO [distill-curator] Loaded 5196 verdicts (5196 Opus-escalated), 5196 feedback pairs
+23:41:54 INFO [distill-curator] Curation stats: {
+  "verdicts_total": 5196,
+  "verdicts_opus_escalated": 5196,
+  "pairs_total": 5196,
+  "pairs_kept": 5195,
+  "pairs_dropped_source": 1,
+  "pairs_dropped_confidence": 0,
+  "pairs_dropped_agreement": 0,
+  "pairs_dropped_dedupe": 0,
+  "pairs_dropped_missing_verdict": 0,
+  "pairs_dropped_malformed": 0,
+  "distinct_findings": 5195
+}
+23:41:54 INFO [distill-curator] Wrote DPO dataset: /Users/devops.ai/fixops/Fixops/data/distill_train.jsonl (5195 records)
+23:41:54 INFO [distill-curator] Wrote SFT dataset: /Users/devops.ai/fixops/Fixops/data/distill_sft.jsonl (5195 records)
+23:41:54 INFO [distill-curator] Wrote manifest: /Users/devops.ai/fixops/Fixops/data/distill_dataset_manifest.json
+[2026-04-27T23:41:54] Step 4 complete
+[2026-04-27T23:41:54] DPO pairs after scan : 5195
+[2026-04-27T23:41:54] Delta this run       : +4492
+[2026-04-27T23:41:54] Estimated nights to 10 K threshold: 2
+[2026-04-27T23:41:54] === nightly_fleet_scan_cron DONE ===

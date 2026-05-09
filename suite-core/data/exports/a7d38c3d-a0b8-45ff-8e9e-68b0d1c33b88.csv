@@ -1,0 +1,4 @@
+id,title,severity,source,description,rule_id,cve_id,cvss_score,epss_score,exploitable,application_id,service_id,status,created_at
+26704399-cc7e-4a4a-a759-b171039f422a,SQL Injection,high,zap,SQL injection in login,RULE-001,CVE-2023-1234,8.5,0.45,1,,,open,2026-04-12T22:03:31.422247+00:00
+6b5f56f9-8ac2-4f21-aaa7-386783d7a082,XSS Found,medium,burp,Reflected XSS,RULE-002,,5.0,0.12,0,,,open,2026-04-12T22:03:31.422247+00:00
+4cc61348-2637-4c27-860f-56d530e4ca77,Missing Headers,low,nikto,Missing security headers,RULE-003,,,,0,,,open,2026-04-12T22:03:31.422247+00:00

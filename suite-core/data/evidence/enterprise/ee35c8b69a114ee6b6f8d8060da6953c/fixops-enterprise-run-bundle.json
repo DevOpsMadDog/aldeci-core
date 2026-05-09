@@ -1,0 +1,422 @@
+{
+  "mode": "enterprise",
+  "run_id": "ee35c8b69a114ee6b6f8d8060da6953c",
+  "producer": "FixOps",
+  "overlay": {
+    "mode": "enterprise",
+    "jira": {},
+    "confluence": {},
+    "git": {},
+    "ci": {},
+    "auth": {},
+    "data": {},
+    "toggles": {
+      "require_design_input": true,
+      "auto_attach_overlay_metadata": true,
+      "include_overlay_metadata_in_bundles": true,
+      "enable_rl_experiments": false,
+      "enable_shap_experiments": false,
+      "signing_provider": "env",
+      "opa_server_url": ""
+    },
+    "signing": {
+      "provider": "env",
+      "rotation_sla_days": 30
+    },
+    "metadata": {
+      "source_path": "/var/folders/pc/64y19nzs047c7byks502btvh0000gn/T/fixops_e2e_8bgq2ni5/overlay.yml",
+      "profile_applied": "enterprise",
+      "available_profiles": [],
+      "guardrail_maturity": "scaling",
+      "guardrail_thresholds": {
+        "fail_on": "high",
+        "warn_on": "medium"
+      },
+      "automation_ready": true,
+      "automation_requirements": []
+    },
+    "guardrails": {
+      "maturity": "scaling",
+      "fail_on": "high",
+      "warn_on": "medium"
+    },
+    "context_engine": {},
+    "evidence_hub": {},
+    "onboarding": {},
+    "compliance": {
+      "frameworks": []
+    },
+    "policy_automation": {
+      "actions": []
+    },
+    "policy_engine": {},
+    "pricing": {},
+    "limits": {},
+    "ai_agents": {},
+    "ssdlc": {
+      "stages": []
+    },
+    "exploit_signals": {
+      "signals": {}
+    },
+    "modules": {
+      "compliance": {
+        "enabled": false
+      },
+      "evidence": {
+        "enabled": true
+      },
+      "guardrails": {
+        "enabled": true
+      },
+      "context_engine": {
+        "enabled": true
+      },
+      "onboarding": {
+        "enabled": true
+      },
+      "policy_automation": {
+        "enabled": true
+      },
+      "ai_agents": {
+        "enabled": true
+      },
+      "ssdlc": {
+        "enabled": true
+      },
+      "exploit_signals": {
+        "enabled": true
+      },
+      "probabilistic": {
+        "enabled": true
+      },
+      "pricing": {
+        "enabled": true
+      },
+      "iac_posture": {
+        "enabled": true
+      },
+      "analytics": {
+        "enabled": true
+      },
+      "tenancy": {
+        "enabled": true
+      },
+      "performance": {
+        "enabled": true
+      },
+      "vector_store": {
+        "enabled": true
+      }
+    },
+    "iac": {
+      "targets": []
+    },
+    "probabilistic": {},
+    "analytics": {},
+    "tenancy": {
+      "tenants": []
+    },
+    "performance": {},
+    "enhanced_decision": {}
+  },
+  "design_summary": {
+    "row_count": 2,
+    "unique_components": [
+      "notification-service",
+      "payment-service"
+    ]
+  },
+  "sbom_summary": {
+    "component_count": 2,
+    "relationship_count": 0,
+    "service_count": 0,
+    "vulnerability_count": 0,
+    "format": "CycloneDX",
+    "document_name": null
+  },
+  "sarif_summary": {
+    "run_count": 1,
+    "finding_count": 1,
+    "supported_schema": true,
+    "tool_count": 1,
+    "severity_breakdown": {
+      "error": 1
+    },
+    "tools": [
+      "TestScanner"
+    ]
+  },
+  "cve_summary": {
+    "record_count": 1,
+    "duplicates_removed": 0,
+    "exploited_count": 1
+  },
+  "severity_overview": {
+    "highest": "high",
+    "counts": {
+      "high": 2
+    },
+    "sources": {
+      "sarif": {
+        "high": 1
+      },
+      "cve": {
+        "high": 1
+      }
+    },
+    "trigger": {
+      "source": "sarif",
+      "rule_id": "TEST001",
+      "level": "error",
+      "file": "services/payment-service/app.py"
+    },
+    "metadata": {
+      "file": "services/payment-service/app.py",
+      "location": "services/payment-service/app.py:42",
+      "rule_id": "TEST001",
+      "message": "SQL injection risk",
+      "type": "sast",
+      "service": "payment-service"
+    }
+  },
+  "context_summary": {
+    "summary": {
+      "components_evaluated": 2,
+      "highest_score": 4,
+      "average_score": 2.5,
+      "highest_component": {
+        "name": "payment-service",
+        "score": 4,
+        "playbook": {
+          "name": "Monitor",
+          "min_score": 0
+        }
+      },
+      "signals": {
+        "criticality_distribution": {
+          "unknown": 2
+        },
+        "exposure_distribution": {
+          "internal": 2
+        },
+        "playbook_usage": {
+          "Monitor": 2
+        }
+      }
+    },
+    "components": [
+      {
+        "name": "payment-service",
+        "severity": "high",
+        "context_score": 4,
+        "criticality": "unknown",
+        "data_classification": [],
+        "exposure": "internal",
+        "signals": {
+          "exploited": true,
+          "finding_count": 1,
+          "cve_count": 1
+        },
+        "playbook": {
+          "name": "Monitor",
+          "min_score": 0
+        }
+      },
+      {
+        "name": "notification-service",
+        "severity": "low",
+        "context_score": 1,
+        "criticality": "unknown",
+        "data_classification": [],
+        "exposure": "internal",
+        "signals": {
+          "exploited": false,
+          "finding_count": 0,
+          "cve_count": 0
+        },
+        "playbook": {
+          "name": "Monitor",
+          "min_score": 0
+        }
+      }
+    ]
+  },
+  "guardrail_evaluation": {
+    "maturity": "scaling",
+    "policy": {
+      "fail_on": "high",
+      "warn_on": "medium"
+    },
+    "highest_detected": "high",
+    "status": "fail",
+    "severity_counts": {
+      "high": 2
+    },
+    "rationale": [
+      "highest severity 'high' meets fail threshold 'high'"
+    ],
+    "trigger": {
+      "source": "sarif",
+      "rule_id": "TEST001",
+      "level": "error",
+      "file": "services/payment-service/app.py"
+    }
+  },
+  "compliance_status": null,
+  "policy_automation": {
+    "actions": [],
+    "skipped": [],
+    "status": "idle",
+    "execution": {
+      "dispatched_count": 0,
+      "failed_count": 0,
+      "results": [],
+      "delivery_results": [],
+      "status": "completed"
+    }
+  },
+  "analytics": {
+    "overview": {
+      "currency": "USD",
+      "estimated_value": 4800.0,
+      "total_hours_saved": 32.0,
+      "noise_reduction_percent": 0.0,
+      "mttr_improvement_hours": 24.0,
+      "audit_hours_saved": 24.0,
+      "time_to_value_minutes": 30.0
+    },
+    "roi": {
+      "hourly_rate": 150.0,
+      "noise_hours_saved": 0.0,
+      "automation_hours_saved": 8.0,
+      "audit_hours_saved": 24.0,
+      "estimated_value": 4800.0
+    },
+    "value_by_module": [],
+    "assumptions": {
+      "baseline": {},
+      "targets": {},
+      "metrics": {}
+    },
+    "insights": [
+      "Projected MTTR improvement exceeds one day",
+      "Audit preparation hours reduced by 24.0",
+      "Context engine evaluated 2 components for business impact"
+    ],
+    "overlay": {
+      "mode": "enterprise",
+      "profile": "enterprise"
+    }
+  },
+  "tenant_lifecycle": {
+    "summary": {
+      "total_tenants": 0,
+      "status_counts": {},
+      "stage_counts": {}
+    },
+    "tenants": [],
+    "lifecycle": {
+      "stages": [],
+      "transitions": {}
+    },
+    "operations": {
+      "default_modules": [],
+      "support_contacts": {},
+      "billing": {}
+    },
+    "overlay": {
+      "mode": "enterprise",
+      "profile": "enterprise"
+    }
+  },
+  "performance_profile": {
+    "summary": {
+      "total_estimated_latency_ms": 4000,
+      "module_execution_ms": 0,
+      "artefact_processing_ms": 4000,
+      "threshold_ms": 5000,
+      "status": "realtime"
+    },
+    "timeline": [],
+    "capacity": {
+      "concurrent_runs": 3,
+      "burst_runs": 6,
+      "ingestion_throughput_per_minute": 30.0,
+      "artefact_backlog": 0
+    },
+    "recommendations": [],
+    "overlay": {
+      "mode": "enterprise",
+      "profile": "enterprise"
+    }
+  },
+  "ai_agent_analysis": null,
+  "probabilistic_forecast": {
+    "posterior": {
+      "low": 0.0833,
+      "medium": 0.0833,
+      "high": 0.75,
+      "critical": 0.0833
+    },
+    "next_state": {
+      "low": 0.075,
+      "medium": 0.1792,
+      "high": 0.5,
+      "critical": 0.2458
+    },
+    "metrics": {
+      "expected_high_or_critical": 0.8333,
+      "expected_critical_next_cycle": 0.2458,
+      "entropy_bits": 1.2075,
+      "exploited_records": 1,
+      "spectral_gap": 0.1524,
+      "mixing_time_estimate": 61,
+      "critical_horizon_risk": 0.3148,
+      "stationary_critical_mass": 0.3226,
+      "perplexity": 2.3094
+    },
+    "components": [
+      {
+        "name": "payment-service",
+        "current_severity": "high",
+        "escalation_probability": 0.25,
+        "next_state_distribution": {
+          "high": 0.6,
+          "critical": 0.25,
+          "medium": 0.15
+        }
+      },
+      {
+        "name": "notification-service",
+        "current_severity": "low",
+        "escalation_probability": 0.2,
+        "next_state_distribution": {
+          "low": 0.8,
+          "medium": 0.2
+        }
+      }
+    ],
+    "notes": [
+      "1 exploited vulnerabilities increase prior weight on escalation events",
+      "Components likely to escalate: payment-service",
+      "31% chance of reaching critical severity within 3 cycles",
+      "Stationary distribution retains high critical mass; long-term steady-state risk remains elevated",
+      "Estimated mixing time 61 steps exceeds remediation horizon; accelerate mitigations"
+    ]
+  },
+  "exploitability_insights": null,
+  "severity_promotions": null,
+  "ssdlc_assessment": {
+    "summary": {
+      "total_stages": 0,
+      "satisfied": 0,
+      "in_progress": 0,
+      "gaps": 0,
+      "informational": 0
+    },
+    "stages": []
+  },
+  "iac_posture": null,
+  "module_execution": null
+}

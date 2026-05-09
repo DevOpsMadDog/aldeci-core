@@ -1,0 +1,335 @@
+{
+  "version": "2.1.0",
+  "schema_uri": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "tool_names": [
+    "FixOps Security Scanner"
+  ],
+  "findings": [
+    {
+      "rule_id": "CVE-2021-44228",
+      "message": "Vulnerable Log4j 2.14.1 detected. This version is affected by Log4Shell (CVE-2021-44228), a critical RCE vulnerability with CVSS 10.0. Actively exploited in the wild. Upgrade to 2.17.0+.",
+      "level": "error",
+      "file": "pom.xml",
+      "line": 45,
+      "raw": {
+        "ruleId": "CVE-2021-44228",
+        "level": "error",
+        "message": {
+          "text": "Vulnerable Log4j 2.14.1 detected. This version is affected by Log4Shell (CVE-2021-44228), a critical RCE vulnerability with CVSS 10.0. Actively exploited in the wild. Upgrade to 2.17.0+."
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "pom.xml",
+                "uriBaseId": "%SRCROOT%"
+              },
+              "region": {
+                "startLine": 45,
+                "startColumn": 1
+              }
+            }
+          }
+        ],
+        "fingerprints": {
+          "primaryLocationLineHash": "log4j-core-2.14.1"
+        }
+      },
+      "tool_name": "FixOps Security Scanner"
+    },
+    {
+      "rule_id": "CVE-2022-22965",
+      "message": "Vulnerable Spring Framework 5.3.17 detected. This version is affected by Spring4Shell (CVE-2022-22965), a critical RCE vulnerability. Upgrade to 5.3.18+.",
+      "level": "error",
+      "file": "pom.xml",
+      "line": 52,
+      "raw": {
+        "ruleId": "CVE-2022-22965",
+        "level": "error",
+        "message": {
+          "text": "Vulnerable Spring Framework 5.3.17 detected. This version is affected by Spring4Shell (CVE-2022-22965), a critical RCE vulnerability. Upgrade to 5.3.18+."
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "pom.xml",
+                "uriBaseId": "%SRCROOT%"
+              },
+              "region": {
+                "startLine": 52,
+                "startColumn": 1
+              }
+            }
+          }
+        ],
+        "fingerprints": {
+          "primaryLocationLineHash": "spring-beans-5.3.17"
+        }
+      },
+      "tool_name": "FixOps Security Scanner"
+    },
+    {
+      "rule_id": "CVE-2023-44487",
+      "message": "Node.js 18.18.0 is vulnerable to HTTP/2 Rapid Reset Attack (CVE-2023-44487). Upgrade to 18.18.2+ or 20.8.1+.",
+      "level": "warning",
+      "file": "package.json",
+      "line": 10,
+      "raw": {
+        "ruleId": "CVE-2023-44487",
+        "level": "warning",
+        "message": {
+          "text": "Node.js 18.18.0 is vulnerable to HTTP/2 Rapid Reset Attack (CVE-2023-44487). Upgrade to 18.18.2+ or 20.8.1+."
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "package.json",
+                "uriBaseId": "%SRCROOT%"
+              },
+              "region": {
+                "startLine": 10,
+                "startColumn": 1
+              }
+            }
+          }
+        ],
+        "fingerprints": {
+          "primaryLocationLineHash": "node-18.18.0"
+        }
+      },
+      "tool_name": "FixOps Security Scanner"
+    },
+    {
+      "rule_id": "CVE-2024-3094",
+      "message": "CRITICAL: XZ Utils 5.6.1 contains a backdoor (CVE-2024-3094). This is a supply chain attack affecting SSH authentication. Downgrade to 5.4.x immediately.",
+      "level": "error",
+      "file": "Dockerfile",
+      "line": 15,
+      "raw": {
+        "ruleId": "CVE-2024-3094",
+        "level": "error",
+        "message": {
+          "text": "CRITICAL: XZ Utils 5.6.1 contains a backdoor (CVE-2024-3094). This is a supply chain attack affecting SSH authentication. Downgrade to 5.4.x immediately."
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "Dockerfile",
+                "uriBaseId": "%SRCROOT%"
+              },
+              "region": {
+                "startLine": 15,
+                "startColumn": 1
+              }
+            }
+          }
+        ],
+        "fingerprints": {
+          "primaryLocationLineHash": "xz-utils-5.6.1"
+        }
+      },
+      "tool_name": "FixOps Security Scanner"
+    },
+    {
+      "rule_id": "CVE-2023-34362",
+      "message": "MOVEit Transfer 2023.0.0 is vulnerable to SQL injection (CVE-2023-34362). This vulnerability was actively exploited by Cl0p ransomware group. Upgrade immediately.",
+      "level": "error",
+      "file": "infrastructure/moveit-config.xml",
+      "line": 1,
+      "raw": {
+        "ruleId": "CVE-2023-34362",
+        "level": "error",
+        "message": {
+          "text": "MOVEit Transfer 2023.0.0 is vulnerable to SQL injection (CVE-2023-34362). This vulnerability was actively exploited by Cl0p ransomware group. Upgrade immediately."
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "infrastructure/moveit-config.xml",
+                "uriBaseId": "%SRCROOT%"
+              },
+              "region": {
+                "startLine": 1,
+                "startColumn": 1
+              }
+            }
+          }
+        ],
+        "fingerprints": {
+          "primaryLocationLineHash": "moveit-2023.0.0"
+        }
+      },
+      "tool_name": "FixOps Security Scanner"
+    },
+    {
+      "rule_id": "CVE-2021-45046",
+      "message": "Log4j 2.15.0 is still vulnerable to CVE-2021-45046 in non-default configurations. Upgrade to 2.17.0+.",
+      "level": "error",
+      "file": "services/api/pom.xml",
+      "line": 78,
+      "raw": {
+        "ruleId": "CVE-2021-45046",
+        "level": "error",
+        "message": {
+          "text": "Log4j 2.15.0 is still vulnerable to CVE-2021-45046 in non-default configurations. Upgrade to 2.17.0+."
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "services/api/pom.xml",
+                "uriBaseId": "%SRCROOT%"
+              },
+              "region": {
+                "startLine": 78,
+                "startColumn": 1
+              }
+            }
+          }
+        ],
+        "fingerprints": {
+          "primaryLocationLineHash": "log4j-api-2.15.0"
+        }
+      },
+      "tool_name": "FixOps Security Scanner"
+    },
+    {
+      "rule_id": "CVE-2022-26134",
+      "message": "Confluence Server 8.5.0 is vulnerable to OGNL injection RCE (CVE-2022-26134). Patch immediately.",
+      "level": "error",
+      "file": "docker-compose.yml",
+      "line": 25,
+      "raw": {
+        "ruleId": "CVE-2022-26134",
+        "level": "error",
+        "message": {
+          "text": "Confluence Server 8.5.0 is vulnerable to OGNL injection RCE (CVE-2022-26134). Patch immediately."
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "docker-compose.yml",
+                "uriBaseId": "%SRCROOT%"
+              },
+              "region": {
+                "startLine": 25,
+                "startColumn": 1
+              }
+            }
+          }
+        ],
+        "fingerprints": {
+          "primaryLocationLineHash": "confluence-8.5.0"
+        }
+      },
+      "tool_name": "FixOps Security Scanner"
+    },
+    {
+      "rule_id": "CVE-2023-22515",
+      "message": "Confluence Data Center 8.5.0 is vulnerable to privilege escalation (CVE-2023-22515). CVSS 10.0, actively exploited. Upgrade to 8.5.2+.",
+      "level": "error",
+      "file": "docker-compose.yml",
+      "line": 25,
+      "raw": {
+        "ruleId": "CVE-2023-22515",
+        "level": "error",
+        "message": {
+          "text": "Confluence Data Center 8.5.0 is vulnerable to privilege escalation (CVE-2023-22515). CVSS 10.0, actively exploited. Upgrade to 8.5.2+."
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "docker-compose.yml",
+                "uriBaseId": "%SRCROOT%"
+              },
+              "region": {
+                "startLine": 25,
+                "startColumn": 1
+              }
+            }
+          }
+        ],
+        "fingerprints": {
+          "primaryLocationLineHash": "confluence-8.5.0-priv-esc"
+        }
+      },
+      "tool_name": "FixOps Security Scanner"
+    },
+    {
+      "rule_id": "CVE-2021-26855",
+      "message": "Exchange Server 2019 is vulnerable to ProxyLogon SSRF (CVE-2021-26855). This was exploited by HAFNIUM threat actor. Apply KB5000871 patch.",
+      "level": "error",
+      "file": "infrastructure/exchange-config.ps1",
+      "line": 1,
+      "raw": {
+        "ruleId": "CVE-2021-26855",
+        "level": "error",
+        "message": {
+          "text": "Exchange Server 2019 is vulnerable to ProxyLogon SSRF (CVE-2021-26855). This was exploited by HAFNIUM threat actor. Apply KB5000871 patch."
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "infrastructure/exchange-config.ps1",
+                "uriBaseId": "%SRCROOT%"
+              },
+              "region": {
+                "startLine": 1,
+                "startColumn": 1
+              }
+            }
+          }
+        ],
+        "fingerprints": {
+          "primaryLocationLineHash": "exchange-2019"
+        }
+      },
+      "tool_name": "FixOps Security Scanner"
+    },
+    {
+      "rule_id": "CVE-2019-11510",
+      "message": "Pulse Connect Secure 9.0.3 is vulnerable to arbitrary file read (CVE-2019-11510). Upgrade to 9.0R3.4+.",
+      "level": "error",
+      "file": "vpn/pulse-config.xml",
+      "line": 1,
+      "raw": {
+        "ruleId": "CVE-2019-11510",
+        "level": "error",
+        "message": {
+          "text": "Pulse Connect Secure 9.0.3 is vulnerable to arbitrary file read (CVE-2019-11510). Upgrade to 9.0R3.4+."
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "vpn/pulse-config.xml",
+                "uriBaseId": "%SRCROOT%"
+              },
+              "region": {
+                "startLine": 1,
+                "startColumn": 1
+              }
+            }
+          }
+        ],
+        "fingerprints": {
+          "primaryLocationLineHash": "pulse-9.0.3"
+        }
+      },
+      "tool_name": "FixOps Security Scanner"
+    }
+  ],
+  "metadata": {
+    "run_count": 1,
+    "finding_count": 10,
+    "supported_schema": false,
+    "tool_count": 1
+  }
+}

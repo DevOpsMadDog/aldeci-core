@@ -1,0 +1,62 @@
+{
+  "findings": [
+    {
+      "id": "dac3a7ae-8057-481c-803b-cabfd526ca3c",
+      "org_id": "org-test-001",
+      "title": "SQL Injection",
+      "severity": "high",
+      "source": "zap",
+      "description": "SQL injection in login",
+      "rule_id": "RULE-001",
+      "cve_id": "CVE-2023-1234",
+      "cvss_score": 8.5,
+      "epss_score": 0.45,
+      "exploitable": 1,
+      "application_id": null,
+      "service_id": null,
+      "status": "open",
+      "metadata": "{}",
+      "import_id": "623471d5-400b-4c99-abf3-f6cc06933c68",
+      "created_at": "2026-04-12T22:03:31.441816+00:00"
+    },
+    {
+      "id": "1d4d8f09-bd30-4a93-bac5-91d436f122bb",
+      "org_id": "org-test-001",
+      "title": "XSS Found",
+      "severity": "medium",
+      "source": "burp",
+      "description": "Reflected XSS",
+      "rule_id": "RULE-002",
+      "cve_id": "",
+      "cvss_score": 5.0,
+      "epss_score": 0.12,
+      "exploitable": 0,
+      "application_id": null,
+      "service_id": null,
+      "status": "open",
+      "metadata": "{}",
+      "import_id": "623471d5-400b-4c99-abf3-f6cc06933c68",
+      "created_at": "2026-04-12T22:03:31.441816+00:00"
+    },
+    {
+      "id": "5654e0cc-dae1-4165-be49-9fdf78054a15",
+      "org_id": "org-test-001",
+      "title": "Missing Headers",
+      "severity": "low",
+      "source": "nikto",
+      "description": "Missing security headers",
+      "rule_id": "RULE-003",
+      "cve_id": "",
+      "cvss_score": "",
+      "epss_score": "",
+      "exploitable": 0,
+      "application_id": null,
+      "service_id": null,
+      "status": "open",
+      "metadata": "{}",
+      "import_id": "623471d5-400b-4c99-abf3-f6cc06933c68",
+      "created_at": "2026-04-12T22:03:31.441816+00:00"
+    }
+  ],
+  "total": 3
+}

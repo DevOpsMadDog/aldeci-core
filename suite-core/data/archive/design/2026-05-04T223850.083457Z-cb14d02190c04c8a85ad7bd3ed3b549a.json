@@ -1,0 +1,114 @@
+{
+  "columns": [
+    "service_name",
+    "tier",
+    "exposure",
+    "data_classification",
+    "business_criticality",
+    "environment",
+    "owner",
+    "dependencies"
+  ],
+  "rows": [
+    {
+      "service_name": "enterprise-security-platform",
+      "tier": "tier1",
+      "exposure": "internet",
+      "data_classification": "confidential",
+      "business_criticality": "critical",
+      "environment": "production",
+      "owner": "security-team",
+      "dependencies": "log4j-core,spring-beans,node"
+    },
+    {
+      "service_name": "api-gateway",
+      "tier": "tier1",
+      "exposure": "internet",
+      "data_classification": "internal",
+      "business_criticality": "high",
+      "environment": "production",
+      "owner": "platform-team",
+      "dependencies": "node,express"
+    },
+    {
+      "service_name": "confluence-server",
+      "tier": "tier2",
+      "exposure": "internal",
+      "data_classification": "confidential",
+      "business_criticality": "high",
+      "environment": "production",
+      "owner": "it-team",
+      "dependencies": "confluence-server"
+    },
+    {
+      "service_name": "exchange-server",
+      "tier": "tier1",
+      "exposure": "internet",
+      "data_classification": "confidential",
+      "business_criticality": "critical",
+      "environment": "production",
+      "owner": "it-team",
+      "dependencies": "exchange-server"
+    },
+    {
+      "service_name": "vpn-gateway",
+      "tier": "tier1",
+      "exposure": "internet",
+      "data_classification": "confidential",
+      "business_criticality": "critical",
+      "environment": "production",
+      "owner": "network-team",
+      "dependencies": "pulse-connect-secure"
+    },
+    {
+      "service_name": "file-transfer-service",
+      "tier": "tier2",
+      "exposure": "internet",
+      "data_classification": "confidential",
+      "business_criticality": "high",
+      "environment": "production",
+      "owner": "data-team",
+      "dependencies": "moveit-transfer"
+    },
+    {
+      "service_name": "build-server",
+      "tier": "tier3",
+      "exposure": "internal",
+      "data_classification": "internal",
+      "business_criticality": "medium",
+      "environment": "production",
+      "owner": "devops-team",
+      "dependencies": "xz-utils"
+    },
+    {
+      "service_name": "logging-service",
+      "tier": "tier2",
+      "exposure": "internal",
+      "data_classification": "internal",
+      "business_criticality": "medium",
+      "environment": "production",
+      "owner": "platform-team",
+      "dependencies": "log4j-core,log4j-api"
+    },
+    {
+      "service_name": "wiki-service",
+      "tier": "tier2",
+      "exposure": "internal",
+      "data_classification": "internal",
+      "business_criticality": "medium",
+      "environment": "production",
+      "owner": "it-team",
+      "dependencies": "confluence-server"
+    },
+    {
+      "service_name": "customer-portal",
+      "tier": "tier1",
+      "exposure": "internet",
+      "data_classification": "pii",
+      "business_criticality": "critical",
+      "environment": "production",
+      "owner": "product-team",
+      "dependencies": "spring-beans,node,express"
+    }
+  ]
+}

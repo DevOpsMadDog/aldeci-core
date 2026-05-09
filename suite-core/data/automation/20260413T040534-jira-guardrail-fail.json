@@ -1,0 +1,49 @@
+{
+  "id": "jira-guardrail-fail",
+  "type": "jira_issue",
+  "target": "SEC",
+  "payload": {
+    "type": "jira_issue",
+    "summary": "Guardrail failure detected",
+    "description": "FixOps detected a guardrail failure and created this ticket automatically.",
+    "priority": "High",
+    "id": "jira-guardrail-fail",
+    "context": {
+      "highest": "critical",
+      "counts": {
+        "medium": 17,
+        "low": 18,
+        "high": 17,
+        "critical": 3
+      },
+      "sources": {
+        "sarif": {
+          "medium": 16,
+          "low": 18,
+          "high": 16
+        },
+        "cve": {
+          "critical": 3,
+          "high": 1,
+          "medium": 1
+        }
+      },
+      "trigger": {
+        "source": "cve",
+        "cve_id": "CVE-2025-94258",
+        "severity": "CRITICAL",
+        "exploited": false
+      },
+      "metadata": {
+        "file": "src/module6.py",
+        "location": "src/module6.py:860",
+        "rule_id": "RULE-7702",
+        "message": "Security issue 6 in MLPredict AI Service",
+        "type": "sast"
+      }
+    },
+    "project_key": "SEC",
+    "issue_type": "Task"
+  },
+  "dispatched_at": "2026-04-13T04:05:34.754005Z"
+}

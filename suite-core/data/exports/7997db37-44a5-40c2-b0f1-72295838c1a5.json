@@ -1,0 +1,96 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "ALDECI",
+          "version": "2.0",
+          "rules": [
+            {
+              "id": "RULE-001",
+              "name": "SQL Injection",
+              "shortDescription": {
+                "text": "SQL Injection"
+              },
+              "fullDescription": {
+                "text": "SQL injection in login"
+              },
+              "properties": {
+                "severity": "high",
+                "cve": "CVE-2023-1234"
+              }
+            },
+            {
+              "id": "RULE-002",
+              "name": "XSS Found",
+              "shortDescription": {
+                "text": "XSS Found"
+              },
+              "fullDescription": {
+                "text": "Reflected XSS"
+              },
+              "properties": {
+                "severity": "medium",
+                "cve": ""
+              }
+            },
+            {
+              "id": "RULE-003",
+              "name": "Missing Headers",
+              "shortDescription": {
+                "text": "Missing Headers"
+              },
+              "fullDescription": {
+                "text": "Missing security headers"
+              },
+              "properties": {
+                "severity": "low",
+                "cve": ""
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "RULE-001",
+          "level": "error",
+          "message": {
+            "text": "SQL injection in login"
+          },
+          "properties": {
+            "source": "zap",
+            "cvss_score": 8.5,
+            "status": "open"
+          }
+        },
+        {
+          "ruleId": "RULE-002",
+          "level": "warning",
+          "message": {
+            "text": "Reflected XSS"
+          },
+          "properties": {
+            "source": "burp",
+            "cvss_score": 5.0,
+            "status": "open"
+          }
+        },
+        {
+          "ruleId": "RULE-003",
+          "level": "note",
+          "message": {
+            "text": "Missing security headers"
+          },
+          "properties": {
+            "source": "nikto",
+            "cvss_score": "",
+            "status": "open"
+          }
+        }
+      ]
+    }
+  ]
+}

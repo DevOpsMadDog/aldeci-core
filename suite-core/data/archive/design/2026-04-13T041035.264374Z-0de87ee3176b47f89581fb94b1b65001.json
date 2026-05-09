@@ -1,0 +1,16 @@
+{
+  "columns": [
+    "component",
+    "owner",
+    "criticality",
+    "notes"
+  ],
+  "rows": [
+    {
+      "component": "payment-api",
+      "owner": "backend-team",
+      "criticality": "high",
+      "notes": "Handles payment processing"
+    }
+  ]
+}

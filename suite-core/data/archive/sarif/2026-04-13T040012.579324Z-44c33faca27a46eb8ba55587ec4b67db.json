@@ -1,0 +1,49 @@
+{
+  "version": "2.1.0",
+  "schema_uri": "https://json.schemastore.org/sarif-2.1.0.json",
+  "tool_names": [
+    "Snyk"
+  ],
+  "findings": [
+    {
+      "rule_id": "SNYK-JAVA-LOG4J-2314726",
+      "message": "CVE-2021-44228 in log4j-core 2.14.1",
+      "level": "error",
+      "file": "pom.xml",
+      "line": 42,
+      "raw": {
+        "ruleId": "SNYK-JAVA-LOG4J-2314726",
+        "level": "error",
+        "message": {
+          "text": "CVE-2021-44228 in log4j-core 2.14.1"
+        },
+        "locations": [
+          {
+            "physicalLocation": {
+              "artifactLocation": {
+                "uri": "pom.xml"
+              },
+              "region": {
+                "startLine": 42
+              }
+            }
+          }
+        ],
+        "properties": {
+          "security-severity": "8.5",
+          "tags": [
+            "security",
+            "CWE-502"
+          ]
+        }
+      },
+      "tool_name": "Snyk"
+    }
+  ],
+  "metadata": {
+    "run_count": 1,
+    "finding_count": 1,
+    "supported_schema": true,
+    "tool_count": 1
+  }
+}

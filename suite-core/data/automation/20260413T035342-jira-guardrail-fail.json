@@ -1,0 +1,46 @@
+{
+  "id": "jira-guardrail-fail",
+  "type": "jira_issue",
+  "target": "SEC",
+  "payload": {
+    "type": "jira_issue",
+    "id": "jira-guardrail-fail",
+    "priority": "High",
+    "description": "FixOps detected a guardrail failure and created this ticket automatically.",
+    "summary": "Guardrail failure detected",
+    "context": {
+      "highest": "critical",
+      "counts": {
+        "high": 1,
+        "critical": 1
+      },
+      "sources": {
+        "sarif": {
+          "high": 1
+        },
+        "cve": {
+          "high": 0,
+          "critical": 1
+        }
+      },
+      "trigger": {
+        "source": "cve_promoted",
+        "cve_id": "CVE-2024-0001",
+        "original_severity": "high",
+        "promoted_severity": "critical",
+        "promotion_reason": "KEV-listed: CISA KEV catalog - actively exploited in the wild"
+      },
+      "metadata": {
+        "file": "services/payment-service/app.py",
+        "location": "services/payment-service/app.py:42",
+        "rule_id": "TEST001",
+        "message": "SQL injection risk",
+        "type": "sast",
+        "service": "payment-service"
+      }
+    },
+    "project_key": "SEC",
+    "issue_type": "Task"
+  },
+  "dispatched_at": "2026-04-13T03:53:42.854234Z"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "7370e8a6272b43cdbc8d476e02458cce",
+  "stage": "sarif",
+  "stored_at": "2026-04-13T04:07:09.624094Z",
+  "original_filename": "snyk.sarif",
+  "raw_path": "/Users/devops.ai/fixops/Fixops/data/archive/sarif/2026-04-13T040709.624094Z-7370e8a6272b43cdbc8d476e02458cce.raw",
+  "normalized_path": "/Users/devops.ai/fixops/Fixops/data/archive/sarif/2026-04-13T040709.624094Z-7370e8a6272b43cdbc8d476e02458cce.json"
+}

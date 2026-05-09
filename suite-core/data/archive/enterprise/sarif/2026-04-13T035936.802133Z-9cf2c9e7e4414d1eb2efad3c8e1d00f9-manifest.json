@@ -1,0 +1,8 @@
+{
+  "id": "9cf2c9e7e4414d1eb2efad3c8e1d00f9",
+  "stage": "sarif",
+  "stored_at": "2026-04-13T03:59:36.802133Z",
+  "original_filename": "scan.sarif",
+  "raw_path": "/Users/devops.ai/fixops/Fixops/data/archive/enterprise/sarif/2026-04-13T035936.802133Z-9cf2c9e7e4414d1eb2efad3c8e1d00f9.raw",
+  "normalized_path": "/Users/devops.ai/fixops/Fixops/data/archive/enterprise/sarif/2026-04-13T035936.802133Z-9cf2c9e7e4414d1eb2efad3c8e1d00f9.json"
+}

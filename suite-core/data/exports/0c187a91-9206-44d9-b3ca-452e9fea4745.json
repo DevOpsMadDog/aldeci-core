@@ -1,0 +1,43 @@
+{
+  "findings": [
+    {
+      "id": "cf3f2b77-dbdf-402a-8536-ed21d66d92a8",
+      "org_id": "org-test-001",
+      "title": "SQL Injection",
+      "severity": "high",
+      "source": "zap",
+      "description": null,
+      "rule_id": "R1",
+      "cve_id": null,
+      "cvss_score": null,
+      "epss_score": null,
+      "exploitable": 0,
+      "application_id": null,
+      "service_id": null,
+      "status": "open",
+      "metadata": "{}",
+      "import_id": "179c027a-648f-4326-944d-10067b57b432",
+      "created_at": "2026-04-13T03:59:14.954266+00:00"
+    },
+    {
+      "id": "5cd08ed8-fced-41f4-8e5d-7b136dd0a298",
+      "org_id": "org-test-001",
+      "title": "XSS",
+      "severity": "medium",
+      "source": "burp",
+      "description": null,
+      "rule_id": "R2",
+      "cve_id": null,
+      "cvss_score": null,
+      "epss_score": null,
+      "exploitable": 0,
+      "application_id": null,
+      "service_id": null,
+      "status": "open",
+      "metadata": "{}",
+      "import_id": "179c027a-648f-4326-944d-10067b57b432",
+      "created_at": "2026-04-13T03:59:14.954266+00:00"
+    }
+  ],
+  "total": 2
+}

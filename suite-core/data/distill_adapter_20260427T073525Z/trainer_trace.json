@@ -1,0 +1,31 @@
+{
+  "started_at": "2026-04-27T07:35:25.030564+00:00",
+  "finished_at": "2026-04-27T07:35:25.873811+00:00",
+  "mode": "dry-run",
+  "base_model": "Qwen/Qwen2.5-7B-Instruct",
+  "sft_path": "/Users/devops.ai/fixops/Fixops/data/distill_sft.jsonl",
+  "dpo_path": "/Users/devops.ai/fixops/Fixops/data/distill_train.jsonl",
+  "sft_records_seen": 107,
+  "dpo_records_seen": 107,
+  "sft_records_valid": 107,
+  "dpo_records_valid": 107,
+  "sft_records_invalid": 0,
+  "dpo_records_invalid": 0,
+  "library_status": {
+    "torch": "2.10.0",
+    "transformers": "MISSING",
+    "trl": "MISSING",
+    "peft": "MISSING",
+    "datasets": "MISSING",
+    "bitsandbytes": "MISSING",
+    "accelerate": "MISSING"
+  },
+  "device": "mps",
+  "output_dir": "/Users/devops.ai/fixops/Fixops/data/distill_adapter_20260427T073525Z",
+  "notes": [
+    "library_status={'torch': '2.10.0', 'transformers': 'MISSING', 'trl': 'MISSING', 'peft': 'MISSING', 'datasets': 'MISSING', 'bitsandbytes': 'MISSING', 'accelerate': 'MISSING'}",
+    "sample_processed=20",
+    "trl import deferred (expected on dev box): No module named 'trl'"
+  ],
+  "elapsed_seconds": 0.843
+}
