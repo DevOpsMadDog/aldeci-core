@@ -687,6 +687,20 @@ except ImportError as _wam_err:
     )
 
 
+@router.get("/recent", summary="Recent audit events", tags=["audit"])
+async def list_recent_audit_logs(
+    limit: int = Query(200, ge=1, le=1000, description="Number of recent events to return"),
+    org_id: str = Depends(get_org_id),
+) -> Dict[str, Any]:
+    """Return the most recent audit log events. Thin alias over /logs?limit=N used by AdminAuditLogPage."""
+    try:
+        items_raw = db.list_audit_logs(org_id=org_id, limit=limit)
+        items = [log.to_dict() if hasattr(log, "to_dict") else dict(log) for log in items_raw]
+    except Exception:
+        items = []
+    return {"items": items, "count": len(items), "limit": limit}
+
+
 @router.get("/", summary="Audit index", tags=["audit"])
 async def audit_index(org_id: str = Depends(get_org_id)) -> Dict[str, Any]:
     """Return audit log summary counts and recent logs for the org."""
