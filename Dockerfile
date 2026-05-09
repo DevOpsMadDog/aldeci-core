@@ -13,6 +13,8 @@ WORKDIR /build
 COPY suite-ui/aldeci-ui-new/package.json suite-ui/aldeci-ui-new/package-lock.json ./
 RUN npm ci
 COPY suite-ui/aldeci-ui-new/ .
+ARG FIXOPS_API_TOKEN=""
+ENV VITE_API_KEY=${FIXOPS_API_TOKEN}
 RUN npx vite build
 
 # ── Stage 2: Python dependencies ──────────────────────────────
