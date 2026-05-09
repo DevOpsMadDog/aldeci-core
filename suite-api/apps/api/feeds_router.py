@@ -755,6 +755,17 @@ _MITRE_TECHNIQUES: List[Dict[str, Any]] = [
 
 
 @router.get(
+    "/sources",
+    summary="Threat Intelligence Feed Sources (alias for /status)",
+    description="Alias for /api/v1/feeds/status — returns the full registry of configured threat intel feed sources.",
+)
+@cache_endpoint(ttl=TTL_HEALTH)
+async def get_feeds_sources() -> Dict[str, Any]:
+    """Return configured threat intelligence feed sources. Alias for /status used by UI panels."""
+    return await get_feeds_status()
+
+
+@router.get(
     "/mitre/techniques",
     summary="MITRE ATT&CK Techniques",
     description=(

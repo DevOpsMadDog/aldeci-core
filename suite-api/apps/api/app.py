@@ -3395,6 +3395,22 @@ def create_app() -> FastAPI:
     if feeds_router:
         app.include_router(feeds_router, dependencies=[Depends(_verify_api_key), Depends(_require_scope("read:feeds"))])
 
+    # Personas catalog — GET /api/v1/personas (30-persona registry)
+    try:
+        from apps.api.personas_router import router as personas_router
+        app.include_router(personas_router, dependencies=[Depends(_verify_api_key)])
+        _logger.info("Mounted Personas router at /api/v1/personas")
+    except Exception as _personas_err:
+        _logger.warning("Personas router not loaded: %s", _personas_err)
+
+    # Dashboard alias — GET /api/v1/dashboard/executive (alias for analytics)
+    try:
+        from apps.api.dashboard_alias_router import router as dashboard_alias_router
+        app.include_router(dashboard_alias_router, dependencies=[Depends(_verify_api_key)])
+        _logger.info("Mounted Dashboard alias router at /api/v1/dashboard")
+    except Exception as _dash_err:
+        _logger.warning("Dashboard alias router not loaded: %s", _dash_err)
+
     # Knowledge Brain router (central intelligence graph — from suite-core/api/)
     try:
         from api.brain_router import router as brain_router

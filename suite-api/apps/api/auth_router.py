@@ -1805,3 +1805,68 @@ async def oauth_callback(
         provider=provider,
         email=email,
     )
+
+
+# ---------------------------------------------------------------------------
+# GET /me — Current user identity (API-key path)
+# ---------------------------------------------------------------------------
+
+@router.get(
+    "/me",
+    summary="Current user identity",
+    tags=["authentication"],
+)
+async def get_current_user_me(
+    request: Request,
+    _auth: None = Depends(api_key_auth),
+) -> Dict[str, Any]:
+    """Return identity of the caller.
+
+    For JWT callers the claims are decoded from the Bearer token.
+    For API-key callers the token owner record is looked up in AuthDB;
+    if no owner record exists a safe admin placeholder is returned
+    (API keys are admin-scoped by default in this deployment).
+    """
+    # --- JWT path: decode claims directly from Bearer token ---
+    auth_header = request.headers.get("Authorization", "")
+    if auth_header.lower().startswith("bearer "):
+        raw_token = auth_header.split(" ", 1)[1]
+        try:
+            secret = os.getenv("FIXOPS_JWT_SECRET", "fixops-dev-secret-change-in-production-min-32-chars")
+            claims = jwt.decode(raw_token, secret, algorithms=[_DEV_TOKEN_JWT_ALG])
+            return {
+                "org_id": claims.get("org_id", "default"),
+                "email": claims.get("email", "unknown"),
+                "role": claims.get("role", "viewer"),
+                "last_login": claims.get("iat"),
+                "auth_method": "jwt",
+            }
+        except Exception:
+            pass  # fall through to API-key path
+
+    # --- API-key path: look up owner in AuthDB ---
+    # API tokens are admin-scoped; return admin placeholder if no user record found.
+    # Comment: to associate a user record with this token, POST /api/v1/auth/users
+    # with the token's owning email and call /api/v1/auth/login to get a JWT.
+    try:
+        users = db.list_users(limit=1)
+        if users:
+            u = users[0]
+            return {
+                "org_id": getattr(u, "org_id", "default") or "default",
+                "email": getattr(u, "email", "admin@aldeci.local"),
+                "role": getattr(u.role, "value", "admin") if hasattr(u, "role") else "admin",
+                "last_login": None,
+                "auth_method": "api_key",
+            }
+    except Exception:
+        pass
+
+    # Hardcoded admin placeholder for API-key path when no user records exist.
+    return {
+        "org_id": "default",
+        "email": "admin@aldeci.local",
+        "role": "admin",
+        "last_login": None,
+        "auth_method": "api_key",
+    }

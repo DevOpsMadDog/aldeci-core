@@ -232,6 +232,46 @@ async def feed_manager_status() -> Dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
+# Sources — static route MUST be before /{feed_id} catch-all
+# ---------------------------------------------------------------------------
+
+
+@router.get("/sources", summary="Threat intelligence feed sources registry")
+async def list_feed_sources() -> Dict[str, Any]:
+    """Return the registry of all configured threat-intel feed sources.
+
+    Delegates to the suite-feeds FeedManager if available, otherwise returns
+    the feed manager's own list. This route must sit before /{feed_id} so it
+    is not captured as a feed-id lookup.
+    """
+    try:
+        # Prefer suite-feeds registry (real feed metadata with URLs/intervals)
+        import importlib.util as _ilu
+        from pathlib import Path as _Path
+        _sf = _Path(__file__).resolve().parent.parent.parent.parent / "suite-feeds" / "api" / "feeds_router.py"
+        if _sf.exists():
+            _spec = _ilu.spec_from_file_location("_sf_feeds", str(_sf))
+            _mod = _ilu.module_from_spec(_spec)
+            _spec.loader.exec_module(_mod)
+            if hasattr(_mod, "list_feed_sources"):
+                return _mod.list_feed_sources()
+    except Exception:
+        pass
+
+    # Fallback: use feed_manager list
+    try:
+        manager = _get_manager()
+        feeds = manager.list_feeds()
+        sources: Dict[str, Any] = {}
+        for f in feeds:
+            fd = f.model_dump() if hasattr(f, "model_dump") else dict(f)
+            sources[fd.get("name", fd.get("id", "unknown"))] = fd
+        return {"sources": sources, "count": len(sources)}
+    except Exception as exc:
+        return {"sources": {}, "count": 0, "error": str(exc)[:200]}
+
+
+# ---------------------------------------------------------------------------
 # Item routes
 # ---------------------------------------------------------------------------
 
