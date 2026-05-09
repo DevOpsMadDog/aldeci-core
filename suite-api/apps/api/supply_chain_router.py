@@ -536,6 +536,65 @@ def sync_from_brain(
 
 
 @router.get(
+    "/risk-summary",
+    summary="Supply chain risk summary (total deps, critical/high vulns, score)",
+)
+def get_risk_summary(
+    org_id: str = Query("default", description="Organisation ID"),
+) -> Dict[str, Any]:
+    """Return a compact risk summary derived from the risk dashboard and component list."""
+    engine = _get_engine()
+    try:
+        dashboard = engine.get_risk_dashboard(org_id=org_id)
+        components = engine.list_components(org_id=org_id, limit=1000)
+        total_deps = len(components)
+        critical_vulns = getattr(dashboard, "critical_count", 0) or 0
+        high_vulns = getattr(dashboard, "high_count", 0) or 0
+        # dashboard may be a dataclass or dict
+        if hasattr(dashboard, "overall_risk_score"):
+            score = dashboard.overall_risk_score
+        elif isinstance(dashboard, dict):
+            score = dashboard.get("overall_risk_score", 0.0)
+            critical_vulns = dashboard.get("critical_count", critical_vulns)
+            high_vulns = dashboard.get("high_count", high_vulns)
+        else:
+            score = 0.0
+        return {
+            "total_dependencies": total_deps,
+            "critical_vulns": int(critical_vulns),
+            "high_vulns": int(high_vulns),
+            "supply_chain_score": float(score),
+            "org_id": org_id,
+        }
+    except Exception as exc:
+        _logger.exception("get_risk_summary failed for org=%s", org_id)
+        return {
+            "total_dependencies": 0,
+            "critical_vulns": 0,
+            "high_vulns": 0,
+            "supply_chain_score": 0.0,
+            "org_id": org_id,
+        }
+
+
+@router.get(
+    "/dependencies",
+    summary="List all tracked dependencies with basic metadata",
+)
+def list_dependencies(
+    org_id: str = Query("default", description="Organisation ID"),
+    limit: int = Query(200, ge=1, le=1000, description="Maximum results"),
+) -> List[Dict[str, Any]]:
+    """Return list of tracked dependencies (alias over /components with dependency-centric fields)."""
+    engine = _get_engine()
+    try:
+        return engine.list_components(org_id=org_id, limit=limit)
+    except Exception as exc:
+        _logger.exception("list_dependencies failed for org=%s", org_id)
+        return []
+
+
+@router.get(
     "/license-audit",
     summary="Audit dependency licenses from a manifest file",
     status_code=200,

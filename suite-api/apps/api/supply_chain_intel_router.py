@@ -225,6 +225,22 @@ def get_supply_chain_stats(org_id: str = Query(default="default")):
     return _get_engine().get_supply_chain_stats(org_id)
 
 
+@router.get("/sbom", dependencies=[Depends(api_key_auth)], response_model=None)
+def list_sbom(
+    org_id: str = Query(default="default"),
+    project_name: Optional[str] = Query(None),
+):
+    """Return SBOM snapshot list (component name, version, license, source).
+
+    Delegates to existing sbom/snapshots engine. Returns [] if no data.
+    """
+    try:
+        result = _get_engine().list_snapshots(org_id, project_name=project_name)
+        return result if result is not None else []
+    except Exception:
+        return []
+
+
 @router.get("/", dependencies=[Depends(api_key_auth)])
 def supply_chain_intel_overview(org_id: str = Query(default="default")):
     """Top-level supply chain intelligence overview: package, vuln, and malicious signal counts."""

@@ -230,9 +230,23 @@ def start_scan(
     return result
 
 
+@router.get("/scan-jobs", dependencies=[Depends(api_key_auth)])
+def list_scan_jobs_alias(
+    org_id: str = Query(default="default", description="Organization ID"),
+    status: Optional[str] = Query(None),
+    target_type: Optional[str] = Query(None),
+) -> List[Dict[str, Any]]:
+    """Alias for /jobs — returns scan jobs list. Returns [] if no jobs exist."""
+    try:
+        engine = _get_engine(org_id)
+        return engine.list_scan_jobs(org_id, status=status, target_type=target_type)
+    except Exception:
+        return []
+
+
 @router.get("/findings", dependencies=[Depends(api_key_auth)])
 def list_findings(
-    org_id: str = Query(..., description="Organization ID"),
+    org_id: str = Query(default="default", description="Organization ID"),
     severity: Optional[str] = Query(None),
     status: Optional[str] = Query(None),
     secret_type: Optional[str] = Query(None),
@@ -327,7 +341,7 @@ def list_suppressions(
 
 @router.get("/stats", dependencies=[Depends(api_key_auth)])
 def get_scanner_stats(
-    org_id: str = Query(..., description="Organization ID"),
+    org_id: str = Query(default="default", description="Organization ID"),
 ) -> Dict[str, Any]:
     """Return aggregated scanner stats for org."""
     engine = _get_engine(org_id)

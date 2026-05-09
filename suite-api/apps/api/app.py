@@ -6026,6 +6026,26 @@ def create_app() -> FastAPI:
     except Exception as e:
         _logger.warning(f"Supply Chain Intel router not loaded: {e}")
 
+    # Supply Chain Security — risk-summary, dependencies, sbom, provenance
+    try:
+        from apps.api.supply_chain_router import (
+            router as supply_chain_security_router,
+        )
+        app.include_router(supply_chain_security_router, dependencies=[Depends(_verify_api_key)])
+        _logger.info("Mounted Supply Chain Security router at /api/v1/supply-chain")
+    except Exception as e:
+        _logger.warning(f"Supply Chain Security router not loaded: {e}")
+
+    # Secret Scanner Engine — scan jobs, findings, stats, patterns, suppressions
+    try:
+        from apps.api.secret_scanner_engine_router import (
+            router as secret_scanner_engine_router,
+        )
+        app.include_router(secret_scanner_engine_router, dependencies=[Depends(_verify_api_key)])
+        _logger.info("Mounted Secret Scanner Engine router at /api/v1/secret-scanner")
+    except Exception as e:
+        _logger.warning(f"Secret Scanner Engine router not loaded: {e}")
+
     # MLOps Supply Chain Security — model supply chain, typosquat, malicious package analysis
     try:
         from apps.api.mlops_supply_chain_router import (
