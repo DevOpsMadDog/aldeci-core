@@ -49,10 +49,10 @@ kill_timeout = "30s"
   protocol = "http"
 
 [[vm]]
-  memory = "2gb"
+  memory = "4gb"
   cpu_kind = "shared"
-  cpus = 1
-  size = "shared-cpu-1x"
+  cpus = 2
+  size = "shared-cpu-2x"
 
 [[restart]]
   policy = "on-failure"
