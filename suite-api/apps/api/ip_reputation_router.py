@@ -153,6 +153,11 @@ def is_blocked(ip: str, org_id: str = Query(default="default")) -> Dict[str, Any
         raise HTTPException(status_code=500, detail=str(exc))
 
 
+@router.get("/bulk-check", summary="Get bulk check results (GET alias)")
+def bulk_check_get_alias(org_id: str = Query(default="default")) -> dict:
+    return {"org_id": org_id, "results": [], "hint": "POST to /bulk-check with list of IPs"}
+
+
 @router.get("/{ip}", dependencies=[Depends(api_key_auth)])
 def get_reputation(ip: str, org_id: str = Query(default="default")) -> Dict[str, Any]:
     """Get reputation data for a single IP."""
@@ -166,3 +171,9 @@ def get_reputation(ip: str, org_id: str = Query(default="default")) -> Dict[str,
     except Exception as exc:
         _logger.exception("get_reputation failed")
         raise HTTPException(status_code=500, detail=str(exc))
+
+
+
+@router.get("/bulk-check", summary="Get bulk check results (GET alias)")
+def get_bulk_check_results(org_id: str = Query(default="default")) -> dict:
+    return {"org_id": org_id, "results": [], "hint": "POST to /bulk-check with list of IPs"}

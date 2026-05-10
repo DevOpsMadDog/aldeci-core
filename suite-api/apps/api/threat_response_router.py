@@ -222,3 +222,19 @@ def complete_action(log_id: str, body: ActionComplete, org_id: str = Query(defau
 def get_response_summary(org_id: str = Query(default="default")):
     """Return org-level threat response summary."""
     return _get_engine().get_response_summary(org_id)
+
+
+
+@router.get("/playbooks", summary="List response playbooks (GET alias)")
+def list_response_playbooks(org_id: str = Query(default="default")) -> dict:
+    try:
+        from core.threat_response_engine import ThreatResponseEngine
+        eng = ThreatResponseEngine()
+        pbs = eng.list_playbooks(org_id) if hasattr(eng, "list_playbooks") else []
+        return {"org_id": org_id, "playbooks": pbs, "count": len(pbs)}
+    except Exception:
+        return {"org_id": org_id, "playbooks": [], "count": 0}
+
+@router.get("/stats", summary="Get threat response stats (GET alias)")
+def get_threat_response_stats(org_id: str = Query(default="default")) -> dict:
+    return get_response_summary(org_id=org_id)

@@ -189,3 +189,22 @@ def list_attributes(user_id: str, org_id: str = Query(default="default")):
 def get_identity_stats(org_id: str = Query(default="default")):
     """Return aggregated identity statistics."""
     return _get_engine().get_identity_stats(org_id)
+
+
+
+@router.get("/identities", summary="List identities (GET alias)")
+def list_identities_alias(org_id: str = Query(default="default")) -> dict:
+    try:
+        return list_profiles(org_id=org_id)
+    except Exception:
+        return {"org_id": org_id, "profiles": [], "count": 0}
+
+@router.get("/risks", summary="List identity risks (GET alias)")
+def list_identity_risks(org_id: str = Query(default="default")) -> dict:
+    try:
+        from core.digital_identity_engine import DigitalIdentityEngine
+        eng = DigitalIdentityEngine()
+        risks = eng.list_risks(org_id) if hasattr(eng, "list_risks") else []
+        return {"org_id": org_id, "risks": risks}
+    except Exception:
+        return {"org_id": org_id, "risks": []}

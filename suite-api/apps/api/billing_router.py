@@ -24,7 +24,7 @@ from functools import wraps
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 
 from apps.api.dependencies import get_org_id
@@ -275,3 +275,17 @@ async def initiate_upgrade(body: UpgradeRequest, org_id: str = Depends(get_org_i
             f"Upgrade intent recorded. Complete checkout at the URL to activate {target} tier."
         ),
     )
+
+
+
+@router.get("/upgrade", summary="Get upgrade options (GET alias)")
+async def get_upgrade_options(org_id: str = Query("default")) -> dict:
+    """GET alias — returns available tier upgrade options."""
+    return {
+        "org_id": org_id,
+        "current_tier": "starter",
+        "available_tiers": [
+            {"tier": "pro", "price_monthly": 499, "features": ["brain_pipeline", "mpte"]},
+            {"tier": "enterprise", "price_monthly": 1499, "features": ["all"]}
+        ]
+    }

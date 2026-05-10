@@ -185,6 +185,22 @@ async def create_change(body: CreateChangeRequest) -> Dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
+@router.get("/analyze-diff", summary="List diff analyses (GET alias)")
+async def list_diff_analyses(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "analyses": []}
+
+@router.get("/analyze-pr", summary="List PR analyses (GET alias)")
+async def list_pr_analyses(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "analyses": []}
+
+@router.get("/classify", summary="List change classifications (GET alias)")
+async def list_change_classifications(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "classifications": []}
+
+@router.get("/sla-impact", summary="List SLA impact analyses (GET alias)")
+async def list_sla_impacts(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "impacts": []}
+
 @router.get("/{change_id}")
 async def get_change(change_id: str) -> Dict[str, Any]:
     """Get a specific change request by ID."""

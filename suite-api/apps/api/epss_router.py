@@ -101,3 +101,9 @@ def get_score_by_cve(cve_id: str) -> Dict[str, Any]:
             detail=f"No EPSS score found for {cve_id}",
         )
     return row
+
+
+
+@router.get("/import", summary="Get EPSS import status (GET alias)")
+def get_epss_import_status() -> dict:
+    return {"status": "ok", "hint": "POST to /import to trigger EPSS data import"}

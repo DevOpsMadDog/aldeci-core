@@ -352,3 +352,13 @@ def delete_allowlist_entry(entry_id: str) -> Dict[str, Any]:
     if not deleted:
         raise HTTPException(status_code=404, detail=f"Allowlist entry '{entry_id}' not found")
     return {"deleted": True, "entry_id": entry_id}
+
+
+
+@router.get("/scan/cloudformation", summary="List CloudFormation scan results (GET alias)")
+def list_cfn_scans(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "scans": []}
+
+@router.get("/scan/terraform", summary="List Terraform scan results (GET alias)")
+def list_tf_scans(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "scans": []}

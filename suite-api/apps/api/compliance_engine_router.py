@@ -511,3 +511,13 @@ async def assess_all_frameworks_get(
             "org_id": org_id,
             "error": type(e).__name__,
         }
+
+
+
+@router.get("/assess", summary="Get compliance assessment status (GET alias)")
+async def assess_get(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "status": "ok", "hint": "POST to /assess with framework_id"}
+
+@router.get("/map-findings", summary="Get findings mapping info (GET alias)")
+async def map_findings_get(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "mappings": [], "hint": "POST to /map-findings with findings list"}

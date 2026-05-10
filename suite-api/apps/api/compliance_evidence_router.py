@@ -237,3 +237,9 @@ def collect_all(
     except Exception as exc:
         _logger.exception("collect_all failed")
         raise HTTPException(status_code=500, detail=str(exc))
+
+
+
+@router.get("/auto-collect", summary="List auto-collection jobs (GET alias)")
+def list_auto_collect_jobs(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "jobs": []}

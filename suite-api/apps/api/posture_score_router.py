@@ -120,3 +120,9 @@ def add_benchmark(req: BenchmarkRequest) -> Dict[str, Any]:
 def get_posture_stats(org_id: str = Query("default")) -> Dict[str, Any]:
     """Return summary statistics: current score, grade, 30d trend, days at risk."""
     return _get_engine().get_posture_stats(org_id)
+
+
+
+@router.get("/compute", summary="Get computed posture score (GET alias)")
+def get_computed_posture_score(org_id: str = Query("default")) -> dict:
+    return get_current_score(org_id=org_id)

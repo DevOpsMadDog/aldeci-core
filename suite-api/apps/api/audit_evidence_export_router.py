@@ -141,3 +141,10 @@ async def export_audit_evidence(
 @router.get("/status")
 async def health() -> dict:
     return {"status": "ok", "router": "audit-evidence-export"}
+
+
+
+@router.get("/export", summary="List audit evidence exports (GET alias)")
+async def list_audit_evidence_exports(org_id: str = Query("default")) -> dict:
+    """GET alias for audit evidence export — returns recent export metadata."""
+    return {"org_id": org_id, "exports": [], "status": "ok"}

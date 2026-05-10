@@ -207,3 +207,8 @@ def send_now(body: SendNowRequest) -> Dict[str, Any]:
     except Exception as exc:
         logger.exception("Failed to send one-off report")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+@router.get("/generate", summary="Get report generation status (GET alias)")  
+async def get_generate_status(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "status": "ok", "hint": "POST to /generate to create report"}

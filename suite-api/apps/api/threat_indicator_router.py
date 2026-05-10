@@ -180,7 +180,7 @@ def get_expired_indicators(org_id: str = Query(default="default")):
 
 
 @router.get("/search")
-def search_indicators(org_id: str = Query(default="default"), query: str = Query(...)):
+def search_indicators(org_id: str = Query(default="default"), query: str = Query("")):
     """LIKE search on indicator_value."""
     return _get_engine().search_indicators(org_id, query)
 

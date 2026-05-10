@@ -151,3 +151,13 @@ def sync_from_unified_registry(
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
+
+
+
+@router.get("/dsl/validate", summary="Get DSL validation info (GET alias)")
+def get_dsl_validate_info() -> dict:
+    return {"status": "ok", "hint": "POST with DSL rule body to validate"}
+
+@router.get("/dsl/publish", summary="List published DSL rules (GET alias)")
+def list_published_dsl_rules(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "rules": []}

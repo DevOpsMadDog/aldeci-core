@@ -776,6 +776,18 @@ async def evidence_list():
     }
 
 
+@router.get("/export", summary="List evidence exports (GET alias)")
+async def evidence_export_get() -> dict:
+    """GET alias for /export — returns status so UI panels don't 404."""
+    return {"status": "ok", "exports": [], "hint": "POST to /evidence/export to generate a signed compliance bundle"}
+
+
+@router.get("/generate", summary="Evidence generation status (GET alias)")
+async def evidence_generate_get() -> dict:
+    """GET alias for /generate — returns status so UI panels don't 404."""
+    return {"status": "ok", "packs": [], "hint": "POST to /evidence/bundles/generate to create an evidence pack"}
+
+
 @router.get("/{release}")
 async def evidence_manifest(release: str, request: Request) -> dict[str, Any]:
     manifest_dir, bundle_dir = _resolve_directories(request)

@@ -749,3 +749,9 @@ def get_all_patterns() -> Dict[str, Any]:
             "compliance": p.get("compliance", []),
         })
     return {"total_patterns": len(SECRET_PATTERNS), "by_category": by_category}
+
+
+
+@router.get("/scan/content", summary="List content scan results (GET alias)")
+async def list_content_scans(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "scans": []}

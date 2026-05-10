@@ -891,3 +891,9 @@ async def update_overlay_config(config: Dict[str, Any], org_id: str = Depends(ge
         "message": "Overlay configuration updated successfully",
         "requires_restart": False,
     }
+
+
+
+@router.get("/auto-remediate", summary="List auto-remediation jobs (GET alias)")
+async def list_auto_remediation_jobs(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "jobs": []}

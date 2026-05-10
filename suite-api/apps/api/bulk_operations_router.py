@@ -230,3 +230,21 @@ def schedule_export(req: ScheduleExportRequest):
         raise HTTPException(status_code=500, detail=str(exc))
 
     return {"schedule_id": schedule_id, "org_id": req.org_id, "format": fmt.value, "frequency": req.frequency}
+
+
+
+@router.get("/findings/assign", summary="List assignment jobs (GET alias)")
+async def list_assign_jobs(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "jobs": []}
+
+@router.get("/findings/delete", summary="List delete jobs (GET alias)")
+async def list_delete_jobs(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "jobs": []}
+
+@router.get("/findings/update", summary="List update jobs (GET alias)")
+async def list_update_jobs(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "jobs": []}
+
+@router.get("/triage", summary="List triage jobs (GET alias)")
+async def list_triage_jobs(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "jobs": []}

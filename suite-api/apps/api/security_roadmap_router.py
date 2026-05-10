@@ -92,7 +92,7 @@ class MetricCreate(BaseModel):
     summary="Create a security initiative",
 )
 def create_initiative(
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
     body: InitiativeCreate = ...,
 ) -> Dict[str, Any]:
     engine = _get_engine()
@@ -108,7 +108,7 @@ def create_initiative(
     summary="List security initiatives",
 )
 def list_initiatives(
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
     status: Optional[str] = Query(None),
     category: Optional[str] = Query(None),
 ) -> List[Dict[str, Any]]:
@@ -122,7 +122,7 @@ def list_initiatives(
 )
 def get_initiative(
     initiative_id: str,
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
 ) -> Dict[str, Any]:
     result = _get_engine().get_initiative(org_id, initiative_id)
     if result is None:
@@ -137,7 +137,7 @@ def get_initiative(
 )
 def update_initiative(
     initiative_id: str,
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
     body: InitiativeUpdate = ...,
 ) -> Dict[str, Any]:
     data = {k: v for k, v in body.model_dump().items() if v is not None}
@@ -159,7 +159,7 @@ def update_initiative(
 )
 def add_milestone(
     initiative_id: str,
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
     body: MilestoneCreate = ...,
 ) -> Dict[str, Any]:
     engine = _get_engine()
@@ -176,7 +176,7 @@ def add_milestone(
 )
 def list_milestones(
     initiative_id: str,
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
 ) -> List[Dict[str, Any]]:
     return _get_engine().list_milestones(org_id, initiative_id)
 
@@ -188,7 +188,7 @@ def list_milestones(
 )
 def complete_milestone(
     milestone_id: str,
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
 ) -> Dict[str, Any]:
     ok = _get_engine().complete_milestone(org_id, milestone_id)
     if not ok:
@@ -207,7 +207,7 @@ def complete_milestone(
     summary="Record a security gap",
 )
 def add_gap(
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
     body: GapCreate = ...,
 ) -> Dict[str, Any]:
     engine = _get_engine()
@@ -223,7 +223,7 @@ def add_gap(
     summary="List security gaps",
 )
 def list_gaps(
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
     severity: Optional[str] = Query(None),
     resolved: bool = Query(False),
 ) -> List[Dict[str, Any]]:
@@ -237,7 +237,7 @@ def list_gaps(
 )
 def link_gap_to_initiative(
     gap_id: str,
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
     body: GapLink = ...,
 ) -> Dict[str, Any]:
     ok = _get_engine().link_gap_to_initiative(org_id, gap_id, body.initiative_id)
@@ -258,7 +258,7 @@ def link_gap_to_initiative(
 )
 def add_metric(
     initiative_id: str,
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
     body: MetricCreate = ...,
 ) -> Dict[str, Any]:
     engine = _get_engine()
@@ -279,6 +279,6 @@ def add_metric(
     summary="Get aggregate roadmap stats for an org",
 )
 def get_roadmap_stats(
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
 ) -> Dict[str, Any]:
     return _get_engine().get_roadmap_stats(org_id)

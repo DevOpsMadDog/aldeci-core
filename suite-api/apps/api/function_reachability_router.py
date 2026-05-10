@@ -160,3 +160,9 @@ async def get_callgraph(
 async def get_stats(org_id: str = Query("default")) -> Dict[str, Any]:
     """Aggregate counts: nodes, edges, queries, verdicts."""
     return _get_engine().stats(org_id)
+
+
+
+@router.get("/analyze", summary="List reachability analyses (GET alias)")
+async def list_reachability_analyses(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "analyses": []}

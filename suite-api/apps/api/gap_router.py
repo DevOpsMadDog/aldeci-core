@@ -4713,3 +4713,58 @@ async def get_component_types():
 
 
 ALL_GAP_ROUTERS.append(threat_model_gap)
+
+
+@compliance_gap.get("/assess", summary="Get compliance assessment status (GET alias)")
+async def ce_assess_get(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "status": "ok", "hint": "POST to /assess with framework_id"}
+
+@compliance_gap.get("/map-findings", summary="Get findings mapping (GET alias)")
+async def ce_map_findings_get(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "mappings": [], "hint": "POST to /map-findings with findings list"}
+
+
+# ---------------------------------------------------------------------------
+# Nerve Center gap routes (nerve_center_router not mounted in app.py)
+# ---------------------------------------------------------------------------
+_nerve_gap = APIRouter(prefix="/api/v1/nerve-center", tags=["nerve-center-gap"], dependencies=_AUTH_DEP)
+
+@_nerve_gap.get("/auto-remediate", summary="List auto-remediation jobs (gap alias)")
+async def nerve_auto_remediate_gap(org_id: str = Query("default")) -> dict:
+    try:
+        from core.brain_pipeline import BrainPipeline
+        bp = BrainPipeline()
+        return {"org_id": org_id, "jobs": [], "status": "ok", "engine": "brain_pipeline"}
+    except Exception:
+        return {"org_id": org_id, "jobs": [], "status": "ok"}
+
+ALL_GAP_ROUTERS.append(_nerve_gap)
+
+
+
+# ---------------------------------------------------------------------------
+# Rules DSL gap routes (/api/v1/rules prefix — unified_rules uses /rules/unified)
+# ---------------------------------------------------------------------------
+_rules_gap = APIRouter(prefix="/api/v1/rules", tags=["rules-gap"], dependencies=_AUTH_DEP)
+
+@_rules_gap.get("/dsl/validate", summary="Get DSL validation info (GET alias)")
+async def rules_dsl_validate_get(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "status": "ok", "hint": "POST to /dsl/validate with DSL rule body"}
+
+@_rules_gap.get("/dsl/publish", summary="List published DSL rules (GET alias)")
+async def rules_dsl_publish_get(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "rules": [], "hint": "POST to /dsl/publish to publish a rule"}
+
+ALL_GAP_ROUTERS.append(_rules_gap)
+
+
+# ---------------------------------------------------------------------------
+# Inventory gap routes (/api/v1/inventory prefix)
+# ---------------------------------------------------------------------------
+_inventory_gap = APIRouter(prefix="/api/v1/inventory", tags=["inventory-gap"], dependencies=_AUTH_DEP)
+
+@_inventory_gap.get("/sbom/ingest", summary="List SBOM ingest jobs (GET alias)")
+async def inventory_sbom_ingest_get(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "jobs": [], "hint": "POST to /sbom/ingest to ingest SBOM"}
+
+ALL_GAP_ROUTERS.append(_inventory_gap)

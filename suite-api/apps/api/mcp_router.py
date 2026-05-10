@@ -670,6 +670,11 @@ async def list_mcp_tools(
     return tools
 
 
+@router.get("/tools/call", summary="List recent tool calls (GET alias)")
+async def list_tool_calls_get_alias(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "calls": [], "hint": "POST to /tools/call to invoke a tool"}
+
+
 @router.get("/tools/{tool_name}", response_model=MCPToolDefinition)
 async def get_mcp_tool(request: Request, tool_name: str) -> MCPToolDefinition:
     """Return the schema for a single MCP tool by name.
@@ -1066,3 +1071,13 @@ def register_startup_hook(app: FastAPI) -> None:
             )
         except (OSError, ValueError, KeyError, RuntimeError) as exc:  # narrowed from bare Exception
             logger.error("MCP catalog generation failed: %s", exc, exc_info=True)
+
+
+
+@router.get("/clients/register", summary="List registered MCP clients (GET alias)")
+async def list_mcp_clients(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "clients": []}
+
+@router.get("/tools/call", summary="List recent tool calls (GET alias)")
+async def list_tool_calls(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "calls": []}

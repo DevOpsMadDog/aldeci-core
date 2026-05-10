@@ -17,7 +17,7 @@ from collections import defaultdict
 from threading import Lock
 from typing import Any, Dict, List, Optional
 
-from fastapi import APIRouter, Header, HTTPException, Request
+from fastapi import APIRouter, Header, HTTPException, Request, Query
 from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
@@ -652,3 +652,21 @@ async def get_material_change(change_id: str) -> Dict[str, Any]:
     if item is None:
         raise HTTPException(status_code=404, detail=f"Material change {change_id!r} not found")
     return item
+
+
+
+@router.get("/analyze-diff", summary="List diff analyses (GET alias)")
+async def list_diff_analyses(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "analyses": []}
+
+@router.get("/analyze-pr", summary="List PR analyses (GET alias)")
+async def list_pr_analyses(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "analyses": []}
+
+@router.get("/classify", summary="List change classifications (GET alias)")
+async def list_classifications(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "classifications": []}
+
+@router.get("/sla-impact", summary="List SLA impact analyses (GET alias)")
+async def list_sla_impacts(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "impacts": []}

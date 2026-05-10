@@ -712,3 +712,9 @@ async def audit_index(org_id: str = Depends(get_org_id)) -> Dict[str, Any]:
         items = []
         total = 0
     return {"router": "audit", "org_id": org_id, "total_logs": total, "items": items, "count": len(items)}
+
+
+@router.get("/verify-chain", summary="Verify audit log chain (GET alias)")
+async def verify_chain_alias() -> dict:
+    """GET alias — returns audit chain verification status."""
+    return await verify_chain()

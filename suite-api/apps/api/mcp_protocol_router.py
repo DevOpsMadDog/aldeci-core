@@ -469,3 +469,9 @@ async def terminate_session(session_id: str) -> Dict[str, Any]:
         return {"terminated": True, "session_id": session_id, "transport": "handler"}
     except (ValueError, KeyError, RuntimeError, TypeError, AttributeError):
         raise HTTPException(status_code=404, detail=f"Session not found: {session_id}")
+
+
+
+@router.get("/discover", summary="Discover MCP capabilities")
+async def discover_mcp() -> dict:
+    return {"status": "ok", "protocol": "mcp-1.0", "capabilities": ["tools", "resources", "prompts"]}

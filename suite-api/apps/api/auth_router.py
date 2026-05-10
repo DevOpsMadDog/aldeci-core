@@ -1870,3 +1870,16 @@ async def get_current_user_me(
         "last_login": None,
         "auth_method": "api_key",
     }
+
+
+
+@router.get("/login", summary="Auth login status (GET alias)", include_in_schema=False)
+async def auth_login_get() -> dict:
+    """GET alias — returns auth method info for UI pre-flight check."""
+    return {"methods": ["password", "api_key", "saml"], "status": "ok"}
+
+
+@router.get("/refresh", summary="Auth refresh status (GET alias)", include_in_schema=False)
+async def auth_refresh_get() -> dict:
+    """GET alias — returns token refresh info for UI."""
+    return {"status": "ok", "hint": "POST with refresh_token to obtain new access token"}

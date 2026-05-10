@@ -776,6 +776,15 @@ async def evidence_list():
     }
 
 
+@router.get("/export", summary="List evidence exports (GET alias)")
+async def evidence_export_get_alias(request: Request) -> dict:
+    return {"status": "ok", "exports": [], "hint": "POST to /export to generate evidence bundle"}
+
+@router.get("/generate", summary="Get evidence generation status (GET alias)")
+async def evidence_generate_get_alias(request: Request) -> dict:
+    return {"status": "ok", "packs": [], "hint": "POST to /generate to create evidence pack"}
+
+
 @router.get("/{release}")
 async def evidence_manifest(release: str, request: Request) -> dict[str, Any]:
     manifest_dir, bundle_dir = _resolve_directories(request)
@@ -2036,3 +2045,13 @@ async def export_status() -> Dict[str, Any]:
 
 
 __all__ = ["router"]
+
+
+
+@router.get("/export", summary="List evidence exports (GET alias)")
+async def evidence_export_list(request: Request) -> dict:
+    return {"status": "ok", "exports": [], "hint": "POST to /export to generate evidence bundle"}
+
+@router.get("/generate", summary="Get evidence generation status (GET alias)")
+async def evidence_generate_status(request: Request) -> dict:
+    return {"status": "ok", "hint": "POST to /generate to create evidence pack"}

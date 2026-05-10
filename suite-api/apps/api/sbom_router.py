@@ -211,3 +211,13 @@ def sbom_overview(org_id: str = Query(default="default")):
         "vuln_exposure": engine.get_vuln_exposure(org_id),
         "license_summary": engine.get_license_summary(org_id),
     }
+
+
+
+@router.get("/correlate", summary="List SBOM correlations (GET alias)")
+def list_sbom_correlations(org_id: str = Query(default="default")) -> dict:
+    return {"org_id": org_id, "correlations": []}
+
+@router.get("/generate", summary="Get SBOM generation status (GET alias)")
+def get_sbom_generate_status(org_id: str = Query(default="default")) -> dict:
+    return {"org_id": org_id, "status": "ok", "hint": "POST to /generate to create SBOM"}

@@ -179,3 +179,13 @@ def get_mitre_coverage(org_id: str = Query(default="default")):
 def get_simulation_stats(org_id: str = Query(default="default")):
     """Return aggregate simulation statistics for an org."""
     return _get_engine().get_simulation_stats(org_id)
+
+
+
+@router.get("/campaigns/run", summary="List attack simulation campaigns (alias)")
+def list_campaigns_run(org_id: str = Query(default="default")):
+    """GET alias — returns list of simulations for UI campaign panel."""
+    try:
+        return list_simulations(org_id=org_id)
+    except Exception:
+        return {"org_id": org_id, "simulations": [], "count": 0}

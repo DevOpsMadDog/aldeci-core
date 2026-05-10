@@ -23,7 +23,7 @@ from threading import Lock
 from typing import Any, Dict, List, Optional, Set
 
 from core.sast_engine import SAST_RULES, _EXTRA_RULES, get_sast_engine, SASTEngine, OWASP_CATEGORIES
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Query
 from apps.api.dependencies import get_org_id
 from pydantic import BaseModel, Field
 
@@ -688,3 +688,13 @@ async def rule_coverage() -> Dict[str, Any]:
         "owasp_coverage": owasp_coverage,
         "cwe_list": sorted(by_cwe.keys()),
     }
+
+
+
+@router.get("/scan/code", summary="List code scan results (GET alias)")
+async def list_code_scans(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "scans": []}
+
+@router.get("/scan/files", summary="List file scan results (GET alias)")
+async def list_file_scans(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "scans": []}

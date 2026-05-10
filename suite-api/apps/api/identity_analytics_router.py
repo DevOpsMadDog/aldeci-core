@@ -66,7 +66,7 @@ class CreateCertificationRequest(BaseModel):
 
 @router.post("/identities")
 def register_identity(
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
     body: RegisterIdentityRequest = ...,
 ) -> Dict[str, Any]:
     """Register a new identity profile."""
@@ -238,3 +238,13 @@ def get_identity_stats(
     except Exception as exc:
         _logger.error("get_identity_stats failed: %s", exc)
         raise HTTPException(status_code=500, detail=str(exc))
+
+
+@router.get("/profiles", summary="List identity profiles (GET alias)")
+async def list_identity_profiles(org_id: str = Query(default="default")) -> dict:
+    """GET alias — returns identity profiles for UI panel."""
+    try:
+        result = list_identities(org_id=org_id)
+        return {"org_id": org_id, "profiles": result if isinstance(result, list) else [], "count": len(result) if isinstance(result, list) else 0}
+    except Exception:
+        return {"org_id": org_id, "profiles": [], "count": 0}

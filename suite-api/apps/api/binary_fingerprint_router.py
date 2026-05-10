@@ -185,7 +185,7 @@ def check_known_bad(body: CheckBadBody) -> Dict[str, Any]:
 
 @router.get("/stats", dependencies=[Depends(api_key_auth)])
 def stats(
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
 ) -> Dict[str, Any]:
     """Return fingerprint counters for an org."""
     try:

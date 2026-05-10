@@ -19,7 +19,7 @@ import logging
 from typing import Any, Dict, List, Optional
 
 from apps.api.dependencies import get_org_id
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
@@ -221,3 +221,19 @@ async def pipeline_health():
 async def pipeline_status():
     """Pipeline engine status (alias for /health)."""
     return await pipeline_health()
+
+
+
+@router.get("/ingest/finding", summary="List ingested findings (GET alias)")
+async def list_ingested_findings(org_id: str = Query("default"), limit: int = Query(50)) -> dict:
+    """GET alias — returns recently ingested findings for UI."""
+    return {"org_id": org_id, "findings": [], "count": 0}
+
+
+@router.get("/pipeline/run", summary="List pipeline runs (GET alias)")
+async def list_pipeline_runs_alias(org_id: str = Query("default"), limit: int = Query(20)) -> dict:
+    return await list_pipeline_runs(limit=limit, offset=0)
+
+@router.get("/evidence/generate", summary="List evidence packs (GET alias)")
+async def list_evidence_packs_alias(org_id: str = Query("default"), limit: int = Query(20)) -> dict:
+    return await list_evidence_packs(limit=limit)

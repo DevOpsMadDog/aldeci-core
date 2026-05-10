@@ -456,3 +456,16 @@ def export_config(
         media_type="text/yaml",
         headers={"Content-Disposition": f'attachment; filename="aldeci-{app_id}.yaml"'},
     )
+
+
+
+@router.get("", summary="List apps (root alias)")
+def list_apps_root(
+    org_id: str = Query("default"),
+    mgr: AppConfigManager = Depends(get_manager),
+) -> list:
+    """Root GET alias for /api/v1/apps."""
+    try:
+        return mgr.list_apps(org_id)
+    except Exception:
+        return []

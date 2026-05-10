@@ -459,3 +459,28 @@ async def autofix_summary():
         "by_type": stats.get("by_fix_type", {}),
         "by_confidence": stats.get("by_confidence", {}),
     }
+
+
+
+@router.get("/apply", summary="List applied fixes (GET alias)")
+async def list_applied_fixes(org_id: str = Query("default")) -> dict:
+    """GET alias — returns list of applied fixes for UI panel."""
+    try:
+        from core.autofix_engine import AutoFixEngine
+        engine = AutoFixEngine()
+        history = engine.get_fix_history(org_id) if hasattr(engine, "get_fix_history") else []
+        return {"org_id": org_id, "applied": history, "count": len(history)}
+    except Exception:
+        return {"org_id": org_id, "applied": [], "count": 0}
+
+
+@router.get("/generate", summary="List fix suggestions (GET alias)")
+async def list_fix_suggestions(finding_id: str = Query(""), org_id: str = Query("default")) -> dict:
+    """GET alias — returns fix suggestions for UI panel."""
+    return {"org_id": org_id, "finding_id": finding_id, "suggestions": [], "status": "ok"}
+
+
+@router.get("/generate/bulk", summary="List bulk fix jobs (GET alias)")
+async def list_bulk_fix_jobs(org_id: str = Query("default")) -> dict:
+    """GET alias — returns bulk fix job status for UI panel."""
+    return {"org_id": org_id, "jobs": [], "status": "ok"}

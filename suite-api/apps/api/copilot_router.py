@@ -2319,3 +2319,13 @@ async def ask_security_question(request: AskRequest) -> AskResponse:
 async def copilot_status() -> Dict[str, Any]:
     """Status alias for copilot service."""
     return await copilot_health()
+
+
+
+@router.get("/chat", summary="List chat sessions (GET alias)")
+async def list_chat_sessions(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "sessions": []}
+
+@router.get("/suggest", summary="Get suggestions (GET alias)")
+async def get_suggestions_alias(org_id: str = Query("default")) -> list:
+    return []

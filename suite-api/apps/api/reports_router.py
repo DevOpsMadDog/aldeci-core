@@ -1060,3 +1060,9 @@ async def export_json(
     }
 
     return export_data
+
+
+
+@router.get("/generate", summary="Get report generation status (GET alias)")
+async def get_report_generation_status(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "status": "ok", "hint": "POST to /generate to create report"}

@@ -144,3 +144,9 @@ def stats(org_id: str = Query("default")) -> Dict[str, Any]:
     except Exception as exc:
         _logger.exception("Error computing FAIR stats")
         raise HTTPException(status_code=500, detail=str(exc))
+
+
+
+@router.get("/per-bu-risk", summary="Get per-BU risk (GET alias)")
+def get_per_bu_risk_alias(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "business_units": [], "hint": "POST to compute risk"}

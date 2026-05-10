@@ -138,7 +138,7 @@ def verify_attestation(
 
 @router.get("/attestations", dependencies=[Depends(api_key_auth)])
 def list_attestations(
-    org_id: str = Query(..., description="Organisation ID"),
+    org_id: str = Query("default", description="Organisation ID"),
     subject_name: Optional[str] = Query(default=None, description="Filter by subject name"),
     builder_id: Optional[str] = Query(default=None, description="Filter by builder id"),
 ) -> List[Dict[str, Any]]:
@@ -163,9 +163,15 @@ def get_attestation(attestation_id: str) -> Dict[str, Any]:
 
 
 @router.get("/stats", dependencies=[Depends(api_key_auth)])
-def stats(org_id: str = Query(..., description="Organisation ID")) -> Dict[str, Any]:
+def stats(org_id: str = Query("default", description="Organisation ID")) -> Dict[str, Any]:
     """Return aggregate stats: counts by SLSA level + verification pass/fail rate."""
     try:
         return _get_engine().stats(org_id=org_id)
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc))
+
+
+
+@router.get("/attest", summary="Get attestation info (GET alias)")
+def get_attest_info(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "status": "ok", "hint": "POST to /attest to create attestation"}

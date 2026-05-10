@@ -770,3 +770,9 @@ async def marketplace_status():
 
 
 __all__ = ["router"]
+
+
+
+@router.get("/contribute", summary="Get contribution guidelines (GET alias)")
+async def get_contribution_guidelines() -> dict:
+    return {"status": "ok", "guidelines_url": "/docs/contributing", "hint": "POST to /contribute to submit"}

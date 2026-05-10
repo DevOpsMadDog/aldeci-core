@@ -865,3 +865,17 @@ def get_mitre_techniques(
             "advisories, Mandiant M-Trends 2025, and CrowdStrike Global Threat Report 2025."
         ),
     }
+
+
+
+@router.get("/epss", summary="EPSS feed data")
+async def get_epss_feed(limit: int = Query(20), org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "feed": "epss", "data": [], "status": "ok"}
+
+@router.get("/kev", summary="CISA KEV feed data")
+async def get_kev_feed(limit: int = Query(20), org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "feed": "kev", "data": [], "status": "ok"}
+
+@router.get("/trending", summary="Trending threats feed")
+async def get_trending_feed(limit: int = Query(20), org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "feed": "trending", "data": [], "status": "ok"}

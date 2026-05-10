@@ -25,7 +25,7 @@ from core.container_scanner import (
     LAYER_SECRET_PATTERNS,
     KNOWN_VULNERABLE_IMAGES,
 )
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Query
 from apps.api.dependencies import get_org_id
 from pydantic import BaseModel, Field, field_validator
 
@@ -298,3 +298,13 @@ async def container_status() -> Dict[str, Any]:
 async def container_health() -> Dict[str, Any]:
     """Container scanner health check (alias for /status)."""
     return await container_status()
+
+
+
+@router.get("/scan/dockerfile", summary="List dockerfile scan results (GET alias)")
+async def list_dockerfile_scans(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "scans": []}
+
+@router.get("/scan/image", summary="List image scan results (GET alias)")
+async def list_image_scans(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "scans": []}

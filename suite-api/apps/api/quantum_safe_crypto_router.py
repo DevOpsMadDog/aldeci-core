@@ -263,3 +263,9 @@ def get_quantum_stats(org_id: str = Query(default="default")) -> Dict[str, Any]:
     except Exception as exc:
         _logger.exception("get_quantum_stats failed")
         raise HTTPException(status_code=500, detail=str(exc))
+
+
+
+@router.get("/keys/rotate", summary="Get key rotation status (GET alias)")
+async def get_key_rotation_status(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "status": "ok", "hint": "POST to /keys/rotate to trigger rotation"}

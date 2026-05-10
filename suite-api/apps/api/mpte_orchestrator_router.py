@@ -18,7 +18,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 import structlog
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, Query
 from apps.api.dependencies import get_org_id
 from pydantic import BaseModel, Field
 
@@ -680,3 +680,13 @@ async def get_pentest_status(test_id: str, org_id: str = Depends(get_org_id)):
         "executive_summary": campaign.executive_summary,
         "recommendations": campaign.recommendations,
     }
+
+
+
+@router.get("/run", summary="List pentest runs (GET alias)")
+async def list_pentest_runs(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "runs": []}
+
+@router.get("/simulate", summary="List simulations (GET alias)")
+async def list_simulations_alias(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "simulations": []}

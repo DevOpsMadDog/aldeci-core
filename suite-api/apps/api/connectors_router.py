@@ -482,3 +482,14 @@ async def connectors_health(org_id: str = Depends(_get_org_id)) -> Dict[str, Any
 async def list_connectors_root(org_id: str = Depends(_get_org_id)) -> Dict[str, Any]:
     """Alias for GET /api/v1/connectors — returns registered connectors."""
     return await list_connectors(org_id=org_id)
+
+
+
+@router.get("/mapping/dry-run", summary="List mapping dry-run results (GET alias)")
+async def list_mapping_dry_runs(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "dry_runs": []}
+
+
+@router.get("/status", summary="Integration status summary")
+async def get_integrations_status(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "status": "ok", "integrations": []}

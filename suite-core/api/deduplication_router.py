@@ -134,7 +134,7 @@ def process_findings_batch(
 
 @router.get("/clusters")
 def list_clusters(
-    org_id: str,
+    org_id: str = Query("default"),
     app_id: Optional[str] = None,
     status: Optional[str] = None,
     severity: Optional[str] = None,

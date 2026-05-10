@@ -883,3 +883,9 @@ async def get_fail_history(
 ) -> Dict[str, Any]:
     """Return drill history for an org — alias used by the UI."""
     return await list_drills(org_id=org_id, history=True, days=days)
+
+
+
+@router.get("/inject", summary="List active chaos injections (GET alias)")
+async def list_injections(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "injections": []}

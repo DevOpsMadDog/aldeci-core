@@ -143,6 +143,26 @@ def list_rules_alias(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
+@router.get("/validate", summary="DSL rule validation info (GET alias)")
+def dsl_validate_info(org_id: str = Query("default")) -> Dict[str, Any]:
+    """Return validation schema info — GET alias so UI panels don't 404."""
+    try:
+        schema = _get_engine().get_schema() if hasattr(_get_engine(), "get_schema") else {}
+    except Exception:
+        schema = {}
+    return {"status": "ok", "schema": schema, "hint": "POST to /api/v1/rules/dsl with a rule body to validate"}
+
+
+@router.get("/publish", summary="List published DSL rules (GET alias)")
+def dsl_list_published(org_id: str = Query("default")) -> Dict[str, Any]:
+    """List published rules — GET alias so UI panels don't 404."""
+    try:
+        rules = _get_engine().list_rules(org_id, status="published")
+    except Exception:
+        rules = []
+    return {"status": "ok", "rules": rules, "total": len(rules)}
+
+
 @router.get("/{key}", summary="Get DSL rule by key (latest version)")
 def get_rule(
     key: str,

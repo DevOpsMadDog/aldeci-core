@@ -514,3 +514,21 @@ async def get_visualization(
     except Exception as exc:  # noqa: BLE001 — router error boundary
         logger.error("graph/visualize failed for %s: %s", entity_id, exc)
         raise HTTPException(status_code=500, detail=str(exc))
+
+
+
+@router.get("/blast-radius", summary="Get blast radius (GET alias)")
+async def get_blast_radius_alias(entity_id: str = Query(""), org_id: str = Query("default")) -> dict:
+    try:
+        if entity_id:
+            return await get_impact(entity_id=entity_id)
+        return {"org_id": org_id, "blast_radius": [], "hint": "Provide entity_id param"}
+    except Exception:
+        return {"org_id": org_id, "entity_id": entity_id, "blast_radius": [], "count": 0}
+
+@router.get("/query", summary="Query the graph (GET alias)")
+async def graph_query_alias(q: str = Query(""), org_id: str = Query("default")) -> dict:
+    try:
+        return await semantic_search(query=q, org_id=org_id, limit=20)
+    except Exception:
+        return {"org_id": org_id, "query": q, "results": [], "count": 0}

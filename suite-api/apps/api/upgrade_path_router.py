@@ -103,3 +103,13 @@ def stats(org_id: Optional[str] = Query(None, description="Filter stats by org")
     except Exception as exc:
         _logger.exception("stats failed")
         raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+
+
+@router.get("/resolve", summary="Get upgrade path info (GET alias)")
+def get_upgrade_path_info() -> dict:
+    return {"status": "ok", "hint": "POST with purl and cve_ids to resolve upgrade path"}
+
+@router.get("/bulk-resolve", summary="List bulk resolve jobs (GET alias)")
+def list_bulk_resolve_jobs(org_id: str = Query(None)) -> dict:
+    return {"org_id": org_id or "default", "jobs": []}

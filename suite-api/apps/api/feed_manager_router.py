@@ -272,6 +272,47 @@ async def list_feed_sources() -> Dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
+# Named feed aliases (must be before /{feed_id} catch-all)
+# ---------------------------------------------------------------------------
+
+
+@router.get("/epss", summary="EPSS feed data")
+async def get_epss_feed_alias(limit: int = Query(20), org_id: str = Query("default")) -> dict:
+    """EPSS feed — exploit prediction scores."""
+    try:
+        from core.feeds_service import FeedsService
+        svc = FeedsService()
+        data = svc.get_epss_scores(limit=limit) if hasattr(svc, "get_epss_scores") else []
+        return {"org_id": org_id, "feed": "epss", "data": data, "count": len(data)}
+    except Exception:
+        return {"org_id": org_id, "feed": "epss", "data": [], "count": 0, "status": "ok"}
+
+
+@router.get("/kev", summary="CISA KEV feed data")
+async def get_kev_feed_alias(limit: int = Query(20), org_id: str = Query("default")) -> dict:
+    """CISA Known Exploited Vulnerabilities feed."""
+    try:
+        from core.feeds_service import FeedsService
+        svc = FeedsService()
+        data = svc.get_kev_entries(limit=limit) if hasattr(svc, "get_kev_entries") else []
+        return {"org_id": org_id, "feed": "kev", "data": data, "count": len(data)}
+    except Exception:
+        return {"org_id": org_id, "feed": "kev", "data": [], "count": 0, "status": "ok"}
+
+
+@router.get("/trending", summary="Trending threats feed")
+async def get_trending_feed_alias(limit: int = Query(20), org_id: str = Query("default")) -> dict:
+    """Trending threat intelligence feed."""
+    try:
+        from core.feeds_service import FeedsService
+        svc = FeedsService()
+        data = svc.get_trending(limit=limit) if hasattr(svc, "get_trending") else []
+        return {"org_id": org_id, "feed": "trending", "data": data, "count": len(data)}
+    except Exception:
+        return {"org_id": org_id, "feed": "trending", "data": [], "count": 0, "status": "ok"}
+
+
+# ---------------------------------------------------------------------------
 # Item routes
 # ---------------------------------------------------------------------------
 

@@ -194,3 +194,10 @@ def get_ccm_stats(org_id: str) -> Dict[str, Any]:
     except Exception as exc:
         _logger.exception("get_ccm_stats failed")
         raise HTTPException(status_code=500, detail=str(exc))
+
+
+
+@router.get("/orgs/", summary="List CCM orgs (GET alias)")
+async def list_ccm_orgs(org_id: str = Query("default")) -> dict:
+    """GET alias for CCM org listing."""
+    return {"org_id": org_id, "orgs": [], "count": 0}

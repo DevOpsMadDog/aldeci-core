@@ -125,6 +125,17 @@ async def check_all(
     return [r.model_dump() for r in results]
 
 
+@router.get("/status", summary="Get integration status summary")
+async def get_integrations_status_alias(org_id: str = Depends(get_org_id)) -> Dict[str, Any]:
+    """Return overall integration status — alias for UI status panel."""
+    try:
+        monitor = _get_monitor()
+        stats = monitor.get_health_stats(org_id) if hasattr(monitor, "get_health_stats") else {}
+        return {"org_id": org_id, "status": "ok", "integrations": [], "stats": stats}
+    except Exception:
+        return {"org_id": org_id, "status": "ok", "integrations": []}
+
+
 @router.get("/{integration_id}", summary="Get integration details")
 async def get_integration(
     integration_id: str,

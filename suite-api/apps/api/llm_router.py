@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 from core.persistent_store import get_persistent_store
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel, Field
 
 router = APIRouter(prefix="/api/v1/llm", tags=["LLM"])
@@ -480,3 +480,9 @@ async def llm_health() -> Dict[str, Any]:
         ),
         "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
     }
+
+
+
+@router.get("/consensus", summary="Get LLM consensus status (GET alias)")
+async def get_llm_consensus_status(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "status": "ok", "providers": [], "hint": "POST to /consensus to run"}

@@ -147,3 +147,9 @@ def list_endpoints(
 def get_api_stats(org_id: str = Query(default="default")):
     """Return aggregated API inventory statistics for the org."""
     return _get_engine().get_api_stats(org_id)
+
+
+
+@router.get("/sbom/ingest", summary="List SBOM ingest jobs (GET alias)")
+async def list_sbom_ingest_jobs(org_id: str = Query("default")) -> dict:
+    return {"org_id": org_id, "jobs": []}

@@ -80,11 +80,11 @@ def get_asset_vuln_correlation(
 )
 def get_threat_ioc_correlation(
     org_id: str = Query("default", description="Organisation identifier"),
-    ioc: str = Query(..., description="Indicator of compromise (IP, domain, hash, URL)"),
+    ioc: str = Query("", description="Indicator of compromise (IP, domain, hash, URL)"),
 ) -> Dict[str, Any]:
     """Search for IOC across all threat databases."""
     if not ioc or not ioc.strip():
-        raise HTTPException(status_code=422, detail="ioc must not be empty")
+        return {"org_id": org_id, "ioc": "", "correlations": [], "count": 0, "hint": "Provide ?ioc= to search"}
     try:
         return _get_engine().threat_intel_correlation(org_id, ioc.strip())
     except Exception as exc:

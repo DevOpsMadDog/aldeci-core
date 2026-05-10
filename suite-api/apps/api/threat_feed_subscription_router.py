@@ -178,3 +178,9 @@ def get_due(org_id: str = Query(default="default")) -> List[Dict[str, Any]]:
 @router.get("/stats", summary="Ingestion statistics")
 def get_stats(org_id: str = Query(default="default")) -> Dict[str, Any]:
     return _get_engine().get_ingestion_stats(org_id)
+
+
+
+@router.get("/logs", summary="List ingestion logs (GET alias)")
+def list_ingestion_logs(org_id: str = Query(default="default"), limit: int = Query(50)) -> dict:
+    return get_stats(org_id=org_id)

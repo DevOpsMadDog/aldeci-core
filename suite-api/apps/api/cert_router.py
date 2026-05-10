@@ -145,6 +145,19 @@ def check_certificate(body: CheckDomainRequest, mgr: CertificateManager = Depend
     return mgr.check_certificate(body.domain, port=body.port, timeout=body.timeout)
 
 
+@router.get("/check", summary="Check certificate status (GET alias)")
+def check_cert_status_get(domain: str = Query(""), org_id: str = Query("default")) -> dict:
+    if domain:
+        try:
+            from pydantic import BaseModel as _BM
+            class _R(_BM):
+                domain: str
+            return check_certificate(body=_R(domain=domain))
+        except Exception:
+            pass
+    return {"status": "ok", "domain": domain, "hint": "Provide ?domain= for live TLS probe"}
+
+
 @router.get("/{cert_id}", response_model=Dict[str, Any], summary="Get a certificate by ID")
 def get_certificate(
     cert_id: str,
@@ -182,3 +195,15 @@ def delete_certificate(
     if not deleted:
         raise HTTPException(status_code=404, detail="Certificate not found")
     return DeleteResponse(deleted=True, message="Certificate deleted")
+
+
+
+@router.get("/check", summary="Get certificate check info (GET alias)")
+def get_cert_check_info(domain: str = Query("")) -> dict:
+    """GET alias — returns info about cert checking. POST /check with domain for live probe."""
+    if domain:
+        from pydantic import BaseModel as BM
+        class _Req(BM):
+            domain: str
+        return check_certificate(body=_Req(domain=domain))
+    return {"status": "ok", "hint": "POST to /check with domain for live TLS probe or provide ?domain="}

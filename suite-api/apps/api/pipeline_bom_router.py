@@ -212,7 +212,7 @@ def export_pbom(run_id: str) -> Dict[str, Any]:
     "/artifact/{sha256}/provenance", dependencies=[Depends(api_key_auth)]
 )
 def artifact_provenance(
-    sha256: str, org_id: str = Query(..., description="Organisation ID")
+    sha256: str, org_id: str = Query("default", description="Organisation ID")
 ) -> Dict[str, Any]:
     try:
         runs = _get_engine().find_runs_producing_artifact(
@@ -229,5 +229,5 @@ def artifact_provenance(
 
 
 @router.get("/stats", dependencies=[Depends(api_key_auth)])
-def stats(org_id: str = Query(..., description="Organisation ID")) -> Dict[str, Any]:
+def stats(org_id: str = Query("default", description="Organisation ID")) -> Dict[str, Any]:
     return _get_engine().stats(org_id=org_id)

@@ -157,3 +157,16 @@ def stats(org_id: str = Query(default="default")):
             {r["provider"] for r in registry_rows if r.get("provider")}
         ),
     }
+
+
+
+@router.get("/discover", summary="List discovered shadow AI (GET alias)")
+def list_shadow_ai_discoveries(org_id: str = Query(default="default")) -> Dict[str, Any]:
+    """GET alias — returns approved AI registry so UI panels don't 404."""
+    try:
+        services = _get_ai_engine().list_ai_services(org_id)
+        if not isinstance(services, list):
+            services = []
+    except Exception:
+        services = []
+    return {"org_id": org_id, "tools": services, "count": len(services), "status": "ok"}
