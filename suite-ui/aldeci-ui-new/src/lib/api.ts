@@ -1058,11 +1058,19 @@ export const networkTopologyApi = {
     api.get("/api/v1/network-topology/nodes", {
       params: { org_id: orgId, node_type: nodeType, criticality },
     }),
+  /** Alias for nodes() — called as listNodes() in ArchitectWorkspaceHub */
+  listNodes: (orgId = "default", nodeType?: string, criticality?: string) =>
+    api.get("/api/v1/network-topology/nodes", {
+      params: { org_id: orgId, node_type: nodeType, criticality },
+    }),
   /** GET /api/v1/network-topology/segments */
   segments: (orgId = "default") =>
     api.get("/api/v1/network-topology/segments", { params: { org_id: orgId } }),
   /** GET /api/v1/network-topology/exposure */
   exposure: (orgId = "default") =>
+    api.get("/api/v1/network-topology/exposure", { params: { org_id: orgId } }),
+  /** Alias for exposure() — called as detectExposure() in ArchitectWorkspaceHub */
+  detectExposure: (orgId = "default") =>
     api.get("/api/v1/network-topology/exposure", { params: { org_id: orgId } }),
 };
 
@@ -1600,7 +1608,12 @@ export const autoWaiverApi = {
 export const threatModelingApi = {
   models: (orgId = "default") =>
     api.get("/api/v1/threat-modeling/models", { params: { org_id: orgId } }),
+  listModels: (orgId = "default") =>
+    api.get("/api/v1/threat-modeling/models", { params: { org_id: orgId } }),
   strideCategories: () =>
+    api.get("/api/v1/threat-modeling/stride-categories"),
+  /** Alias for strideCategories() — called as getStrideCategories() in ArchitectWorkspaceHub */
+  getStrideCategories: () =>
     api.get("/api/v1/threat-modeling/stride-categories"),
 };
 

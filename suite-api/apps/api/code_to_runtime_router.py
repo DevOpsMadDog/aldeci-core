@@ -125,7 +125,7 @@ async def bulk_match(req: BulkMatchRequest) -> Dict[str, Any]:
 
 @router.get("/events")
 async def list_events(
-    org_id: str = Query(...),
+    org_id: str = Query("default"),
     service_name: Optional[str] = Query(None),
     limit: int = Query(200, ge=1, le=1000),
 ) -> List[Dict[str, Any]]:
@@ -136,7 +136,7 @@ async def list_events(
 
 @router.get("/matches")
 async def list_matches(
-    org_id: str = Query(...),
+    org_id: str = Query("default"),
     event_id: Optional[str] = Query(None),
     limit: int = Query(200, ge=1, le=1000),
 ) -> List[Dict[str, Any]]:
@@ -146,5 +146,5 @@ async def list_matches(
 
 
 @router.get("/stats")
-async def stats(org_id: str = Query(...)) -> Dict[str, Any]:
+async def stats(org_id: str = Query("default")) -> Dict[str, Any]:
     return _get_engine().stats(org_id)
