@@ -64,6 +64,25 @@ class BlastRadiusRequest(BaseModel):
 # ---------------------------------------------------------------------------
 # Endpoints
 # ---------------------------------------------------------------------------
+@router.get("/")
+async def knowledge_graph_root(limit: int = 100) -> Dict[str, Any]:
+    """Top-N nodes/edges for force-directed graph viz (UI default landing)."""
+    try:
+        engine = _get_engine()
+        analytics = engine.get_graph_analytics()
+        nodes = engine.list_nodes(limit=limit) if hasattr(engine, "list_nodes") else []
+        edges = engine.list_edges(limit=limit) if hasattr(engine, "list_edges") else []
+        return {
+            "nodes": nodes,
+            "edges": edges,
+            "total_nodes": analytics.get("total_nodes", 0),
+            "total_edges": analytics.get("total_edges", 0),
+            "limit": limit,
+        }
+    except Exception:
+        return {"nodes": [], "edges": [], "total_nodes": 0, "total_edges": 0, "limit": limit}
+
+
 @router.get("/stats")
 async def knowledge_graph_stats() -> Dict[str, Any]:
     """Get knowledge graph statistics — node/edge counts, attack paths, etc."""
